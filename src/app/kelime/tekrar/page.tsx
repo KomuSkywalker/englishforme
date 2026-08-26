@@ -11,17 +11,30 @@ import { QuizEngine, type QuizResult } from "@/components/QuizEngine";
 import { Result } from "@/components/Result";
 
 export default function TekrarPage() {
-  const { state, reviewWord } = useProgress();
+  const { state, ready, reviewWord } = useProgress();
   const [result, setResult] = useState<QuizResult | null>(null);
   const [round, setRound] = useState(0);
 
   const exercises = useMemo(() => {
+    if (!ready) return [];
     const dueIds = Object.entries(state.srs)
       .filter(([, e]) => isDue(e))
       .map(([id]) => id);
     const dueWords = shuffle(words.filter((w) => dueIds.includes(w.id))).slice(0, 30);
     return mixedVocabExercises(dueWords, words);
-  }, [round]);
+  }, [round, ready]);
+
+  if (!ready) {
+    return (
+      <div>
+        <PageHeader emoji="🔁" title="Kelime Tekrarı" />
+        <Card className="text-center">
+          <p className="anim-float text-5xl">🦜</p>
+          <p className="mt-2 font-bold text-inksoft">Kutular açılıyor...</p>
+        </Card>
+      </div>
+    );
+  }
 
   if (result) {
     return (

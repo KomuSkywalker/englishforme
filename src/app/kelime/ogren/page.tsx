@@ -21,25 +21,38 @@ const posLabels: Record<string, string> = {
 };
 
 export default function OgrenPage() {
-  const { state, startWord } = useProgress();
+  const { state, ready, startWord, reviewWord } = useProgress();
   const batch = useMemo(
     () =>
-      [...words]
-        .filter((w) => !state.srs[w.id])
-        .sort((a, b) => a.level - b.level)
-        .slice(0, 10),
-    []
+      ready
+        ? [...words]
+            .filter((w) => !state.srs[w.id])
+            .sort((a, b) => a.level - b.level)
+            .slice(0, 10)
+        : [],
+    [ready]
   );
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [phase, setPhase] = useState<"cards" | "quiz" | "done">("cards");
   const [result, setResult] = useState<QuizResult | null>(null);
-  const { reviewWord } = useProgress();
 
   const quiz = useMemo(
     () => (phase === "quiz" ? mixedVocabExercises(batch, words) : []),
     [phase, batch]
   );
+
+  if (!ready) {
+    return (
+      <div>
+        <PageHeader emoji="✨" title="Yeni Kelimeler" />
+        <Card className="text-center">
+          <p className="anim-float text-5xl">🦜</p>
+          <p className="mt-2 font-bold text-inksoft">Deste hazırlanıyor...</p>
+        </Card>
+      </div>
+    );
+  }
 
   if (batch.length === 0) {
     return (
