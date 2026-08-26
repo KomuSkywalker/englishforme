@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #faf6ef;
+  --color-card: #ffffff;
+  --color-ink: #292524;
+  --color-inksoft: #8a8178;
+  --color-line: #eae2d3;
+  --color-grape: #7c3aed;
+  --color-grapedark: #5b21b6;
+  --color-grapesoft: #f1eafe;
+  --color-sun: #f59e0b;
+  --color-sundark: #b45309;
+  --color-sunsoft: #fdf0d5;
+  --color-mint: #10b981;
+  --color-mintdark: #047857;
+  --color-mintsoft: #d9f5ea;
+  --color-berry: #ef4444;
+  --color-berrydark: #b91c1c;
+  --color-berrysoft: #fde3e3;
+  --color-ocean: #0ea5e9;
+  --color-oceandark: #0369a1;
+  --color-oceansoft: #dcf1fb;
+  --color-rose2: #ec4899;
+  --color-rose2dark: #be185d;
+  --color-rose2soft: #fce7f3;
+}
+
+@theme inline {
+  --font-display: var(--font-baloo);
+  --font-sans: var(--font-nunito);
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--color-grapesoft);
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.06); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shake-x {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-7px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(3px); }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.anim-pop { animation: pop-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.anim-shake { animation: shake-x 0.4s ease both; }
+.anim-float { animation: float-y 3s ease-in-out infinite; }
