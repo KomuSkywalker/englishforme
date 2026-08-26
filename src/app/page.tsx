@@ -25,7 +25,7 @@ const modules = [
   { href: "/gramer", emoji: "🧩", title: "Gramer", desc: "16 konu, yıldız topla", bg: "bg-oceansoft" },
   { href: "/okuma", emoji: "📖", title: "Okuma", desc: "Merak uyandıran parçalar", bg: "bg-mintsoft" },
   { href: "/dinleme", emoji: "🎧", title: "Dinleme", desc: "Kulağını sınava alıştır", bg: "bg-sunsoft" },
-  { href: "/cloze", emoji: "🕳️", title: "Boşluk Doldurma", desc: "Use of English pratiği", bg: "bg-rose2soft" },
+  { href: "/uoe", emoji: "🧰", title: "Use of English", desc: "Cloze, restatement, diyalog", bg: "bg-rose2soft" },
   { href: "/oyunlar", emoji: "🎮", title: "Oyunlar", desc: "Eğlenerek XP kas", bg: "bg-berrysoft" },
   { href: "/deneme", emoji: "🎯", title: "Deneme", desc: "Mini ve tam MÜYYES provası", bg: "bg-grapesoft" },
   { href: "/yazma", emoji: "✍️", title: "Yazma", desc: "Essay planı ve kalıplar", bg: "bg-oceansoft" },
@@ -188,6 +188,17 @@ export default function Dashboard() {
           </motion.div>
         ))}
       </div>
+
+      <Link
+        href="/rehber"
+        className="flex items-center justify-between rounded-3xl border-2 border-line bg-card p-4 transition-all hover:-translate-y-0.5 hover:border-grape/40"
+      >
+        <span className="flex items-center gap-3 font-display font-extrabold">
+          <span className="grid size-11 place-items-center rounded-2xl bg-oceansoft text-2xl">🧭</span>
+          MÜYYES Rehberi: format, kurallar ve bölüm taktikleri
+        </span>
+        <span className="text-xl">→</span>
+      </Link>
 
       <Card>
         <div className="mb-3 flex items-center justify-between">

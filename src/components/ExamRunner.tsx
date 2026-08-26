@@ -214,10 +214,10 @@ export function ExamRunner({
           <p className="mt-1 font-bold text-inksoft">{section.exercises.length} soru</p>
           {section.listening ? (
             <div className="mt-4 text-left">
-              <TtsPlayer script={section.listening} onComplete={() => setListened(true)} />
+              <TtsPlayer script={section.listening} onComplete={() => setListened(true)} maxPlays={2} />
               {!listened ? (
                 <p className="mt-2 text-center text-sm font-bold text-inksoft">
-                  Sorulara geçmeden önce parçayı sonuna kadar dinle.
+                  Sorulara geçmeden önce parçayı sonuna kadar dinle. Gerçek sınavdaki gibi 2 hakkın var.
                 </p>
               ) : null}
             </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useProgress } from "@/lib/progress";
 import { Card, Chip, LinkButton, PageHeader } from "@/components/ui";
 
@@ -19,7 +20,8 @@ export default function DenemeHub() {
           <p className="text-4xl">☕</p>
           <h2 className="mt-2 text-xl font-extrabold">Mini Deneme</h2>
           <p className="mt-1 flex-1 text-sm font-bold text-inksoft">
-            20 soru, 20 dakika. Güne başlarken ya da mola arasında ideal ısınma turu.
+            20 soruluk Use of English turu (gramer, kelime, cümle tamamlama, restatement, diyalog),
+            20 dakika.
           </p>
           <LinkButton href="/deneme/mini" accent="sun" className="mt-4">
             Mini denemeye başla →
@@ -29,13 +31,23 @@ export default function DenemeHub() {
           <p className="text-4xl">🔥</p>
           <h2 className="mt-2 text-xl font-extrabold">Tam Deneme</h2>
           <p className="mt-1 flex-1 text-sm font-bold text-inksoft">
-            61 soru, 60 dakika. Gramer + kelime + cloze + okuma + dinleme: gerçek sınavın provası.
+            Gerçek MÜYYES kurgusu: cloze + sentence completion + restatement + diyalog + kelime,
+            3 okuma metni ve 2 dinleme (ikişer dinleme hakkı). 57 soru, 100 dakika.
           </p>
           <LinkButton href="/deneme/tam" accent="grape" className="mt-4">
             Tam denemeye başla →
           </LinkButton>
         </Card>
       </div>
+      <Card className="bg-oceansoft/50">
+        <p className="text-sm font-bold">
+          ✍️ Gerçek sınavdaki 4. bölüm olan Writing burada puanlanmaz: denemeden sonra{" "}
+          <Link href="/yazma" className="underline">
+            Yazma Atölyesi
+          </Link>
+          {"'nde"} bir essay yazarak tam sınav provası yapmış olursun.
+        </p>
+      </Card>
       <Card>
         <h2 className="mb-3 text-lg font-extrabold">📜 Deneme geçmişin</h2>
         {history.length === 0 ? (

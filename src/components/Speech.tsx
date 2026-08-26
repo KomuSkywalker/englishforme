@@ -36,21 +36,33 @@ export function SpeakButton({ text, className = "" }: { text: string; className?
   );
 }
 
-export function TtsPlayer({ script, onComplete }: { script: string; onComplete?: () => void }) {
+export function TtsPlayer({
+  script,
+  onComplete,
+  maxPlays,
+}: {
+  script: string;
+  onComplete?: () => void;
+  maxPlays?: number;
+}) {
   const [status, setStatus] = useState<"idle" | "playing" | "done">("idle");
+  const [plays, setPlays] = useState(0);
   const completed = useRef(false);
 
   useEffect(() => {
     return () => window.speechSynthesis?.cancel();
   }, []);
 
+  const playsLeft = maxPlays === undefined ? Infinity : maxPlays - plays;
+
   function play() {
     const synth = window.speechSynthesis;
-    if (!synth) return;
+    if (!synth || playsLeft <= 0) return;
     synth.cancel();
     const voices = pickVoices();
     const lines = script.split("\n").filter((l) => l.trim().length > 0);
     setStatus("playing");
+    setPlays((p) => p + 1);
     lines.forEach((line, i) => {
       const isB = line.startsWith("B:");
       const clean = line.replace(/^[AB]:\s*/, "");
@@ -89,16 +101,20 @@ export function TtsPlayer({ script, onComplete }: { script: string; onComplete?:
             ⏹ Durdur
           </Button>
         ) : (
-          <Button accent="ocean" onClick={play} className="!py-2">
+          <Button accent="ocean" onClick={play} className="!py-2" disabled={playsLeft <= 0}>
             {status === "done" ? "🔁 Tekrar dinle" : "▶️ Dinlemeye başla"}
           </Button>
         )}
         <p className="text-sm font-bold text-inksoft">
-          {status === "playing"
-            ? "Çalıyor... dikkatini ver!"
-            : status === "done"
-              ? "Bitti. Gerçek sınavda 2 kez dinletilir."
-              : "Ses bilgisayarından gelecek, sesi aç."}
+          {maxPlays !== undefined
+            ? playsLeft <= 0
+              ? "Dinleme hakkın bitti, gerçek sınavdaki gibi 2 kez dinledin."
+              : `Kalan dinleme hakkı: ${playsLeft} (sınavda her parça 2 kez çalınır)`
+            : status === "playing"
+              ? "Çalıyor... dikkatini ver!"
+              : status === "done"
+                ? "Bitti. Gerçek sınavda 2 kez dinletilir."
+                : "Ses bilgisayarından gelecek, sesi aç."}
         </p>
       </div>
     </div>

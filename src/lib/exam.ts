@@ -1,4 +1,5 @@
 import type { ClozePassage, Exercise } from "@/data/types";
+import { dialogueCompletion, restatement, sentenceCompletion } from "@/data/useofenglish";
 import { clozePassages, grammarTopics, listeningTracks, readingPassages, words } from "./data";
 import { sample } from "./random";
 import { mixedVocabExercises } from "./vocabQuiz";
@@ -30,37 +31,36 @@ function grammarPool(): Exercise[] {
 }
 
 export function buildMiniExam(): ExamSection[] {
-  const reading = sample(readingPassages, 1)[0];
   return [
-    { title: "Use of English", emoji: "🧩", exercises: sample(grammarPool(), 10) },
-    { title: "Vocabulary", emoji: "🃏", exercises: mixedVocabExercises(sample(words, 5), words) },
-    { title: "Reading", emoji: "📖", passage: reading.text, exercises: reading.questions },
+    { title: "Gramer", emoji: "🧩", exercises: sample(grammarPool(), 6) },
+    { title: "Kelime", emoji: "🃏", exercises: mixedVocabExercises(sample(words, 4), words) },
+    { title: "Sentence Completion", emoji: "✂️", exercises: sample(sentenceCompletion, 4) },
+    { title: "Restatement", emoji: "♻️", exercises: sample(restatement, 3) },
+    { title: "Dialogue Completion", emoji: "💬", exercises: sample(dialogueCompletion, 3) },
   ];
 }
 
 export function buildFullExam(): ExamSection[] {
-  const clozes = sample(clozePassages, 2);
-  const readings = sample(readingPassages, 2);
-  const listening = sample(listeningTracks, 1)[0];
+  const cloze = sample(clozePassages, 1)[0];
+  const readings = sample(readingPassages, 3);
+  const listenings = sample(listeningTracks, 2);
   return [
-    { title: "Use of English: Gramer", emoji: "🧩", exercises: sample(grammarPool(), 20) },
-    {
-      title: "Use of English: Kelime",
-      emoji: "🃏",
-      exercises: mixedVocabExercises(sample(words, 15), words),
-    },
-    ...clozes.map((c, i) => ({
-      title: `Cloze ${i + 1}`,
-      emoji: "🕳️",
-      passage: clozeText(c),
-      exercises: clozeToExercises(c),
-    })),
+    { title: "Cloze Test", emoji: "🕳️", passage: clozeText(cloze), exercises: clozeToExercises(cloze) },
+    { title: "Sentence Completion", emoji: "✂️", exercises: sample(sentenceCompletion, 8) },
+    { title: "Restatement", emoji: "♻️", exercises: sample(restatement, 6) },
+    { title: "Dialogue Completion", emoji: "💬", exercises: sample(dialogueCompletion, 4) },
+    { title: "Vocabulary", emoji: "🃏", exercises: mixedVocabExercises(sample(words, 10), words) },
     ...readings.map((r, i) => ({
       title: `Reading ${i + 1}`,
       emoji: "📖",
       passage: r.text,
       exercises: r.questions,
     })),
-    { title: "Listening", emoji: "🎧", listening: listening.script, exercises: listening.questions },
+    ...listenings.map((l, i) => ({
+      title: `Listening ${i + 1}`,
+      emoji: "🎧",
+      listening: l.script,
+      exercises: l.questions,
+    })),
   ];
 }
