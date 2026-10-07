@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { useProgress } from "@/lib/progress";
 import { dateKey, daysBetween, lastNDays } from "@/lib/dates";
 import { questsForDay } from "@/lib/quests";
+import { buildPlan } from "@/lib/plan";
 import { hashString } from "@/lib/random";
 import { words, grammarTopics, readingPassages, listeningTracks, clozePassages } from "@/lib/data";
 import { Card, Chip, LinkButton, ProgressBar } from "@/components/ui";
@@ -12,8 +13,8 @@ import { Card, Chip, LinkButton, ProgressBar } from "@/components/ui";
 const mascotLines = [
   "Bugün 20 dakika bile devleri devirir. Hadi bakalım!",
   "Kelime kelime gider bu iş, bir tık uzağındayım.",
-  "MÜYYES mi? O bizden korksun. 🦾",
-  "Streak'i söndürme, ateş bizim her şeyimiz! 🔥",
+  "MÜYYES mi? O bizden korksun.",
+  "Streak'i söndürme, ateş bizim her şeyimiz!",
   "Bir oyun aç, farkında olmadan öğrenirsin.",
   "Dünkü sen, bugünkü senden daha az kelime biliyordu.",
   "Gramer canavarları quiz bekliyor, kılıcını kap!",
@@ -21,14 +22,14 @@ const mascotLines = [
 ];
 
 const modules = [
-  { href: "/kelime", emoji: "🃏", title: "Kelime", desc: "Kart destesi ve tekrarlar", bg: "bg-grapesoft" },
-  { href: "/gramer", emoji: "🧩", title: "Gramer", desc: "16 konu, yıldız topla", bg: "bg-oceansoft" },
-  { href: "/okuma", emoji: "📖", title: "Okuma", desc: "Merak uyandıran parçalar", bg: "bg-mintsoft" },
-  { href: "/dinleme", emoji: "🎧", title: "Dinleme", desc: "Kulağını sınava alıştır", bg: "bg-sunsoft" },
-  { href: "/uoe", emoji: "🧰", title: "Use of English", desc: "Cloze, restatement, diyalog", bg: "bg-rose2soft" },
-  { href: "/oyunlar", emoji: "🎮", title: "Oyunlar", desc: "Eğlenerek XP kas", bg: "bg-berrysoft" },
-  { href: "/deneme", emoji: "🎯", title: "Deneme", desc: "Mini ve tam MÜYYES provası", bg: "bg-grapesoft" },
-  { href: "/yazma", emoji: "✍️", title: "Yazma", desc: "Essay planı ve kalıplar", bg: "bg-oceansoft" },
+  { href: "/kelime", title: "Kelime", desc: "Kart destesi ve tekrarlar", bg: "bg-grapesoft" },
+  { href: "/gramer", title: "Gramer", desc: "16 konu, yıldız topla", bg: "bg-oceansoft" },
+  { href: "/okuma", title: "Okuma", desc: "Merak uyandıran parçalar", bg: "bg-mintsoft" },
+  { href: "/dinleme", title: "Dinleme", desc: "Kulağını sınava alıştır", bg: "bg-sunsoft" },
+  { href: "/uoe", title: "Use of English", desc: "Cloze, restatement, diyalog", bg: "bg-rose2soft" },
+  { href: "/oyunlar", title: "Oyunlar", desc: "Eğlenerek XP kas", bg: "bg-berrysoft" },
+  { href: "/deneme", title: "Deneme", desc: "Mini ve tam MÜYYES provası", bg: "bg-grapesoft" },
+  { href: "/yazma", title: "Yazma", desc: "Essay planı ve kalıplar", bg: "bg-oceansoft" },
 ];
 
 export default function Dashboard() {
@@ -45,62 +46,92 @@ export default function Dashboard() {
   const doneCount =
     Object.keys(state.reading).length + Object.keys(state.listening).length + Object.keys(state.cloze).length;
   const totalPieces = readingPassages.length + listeningTracks.length + clozePassages.length;
+  const topicsLeft = grammarTopics.filter((t) => (state.grammar[t.id]?.stars ?? 0) === 0).length;
+  const plan = buildPlan(daysLeft, newWordsAvailable, topicsLeft);
+  const examDateTr = (() => {
+    const [y, m, d] = state.settings.examDate.split("-").map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" });
+  })();
 
   return (
     <div className="flex flex-col gap-5">
-      <Card className="relative overflow-hidden">
-        <div className="flex items-center gap-4">
-          <motion.span
-            className="anim-float text-6xl"
-            initial={{ rotate: -8 }}
-            animate={{ rotate: 0 }}
-          >
-            🦜
-          </motion.span>
-          <div className="min-w-0">
-            <h1 className="text-2xl font-extrabold sm:text-3xl">
-              Selam{name ? ` ${name}` : " şampiyon"}! 👋
-            </h1>
-            <p className="mt-1 rounded-2xl rounded-tl-none bg-paper px-3 py-2 text-sm font-bold text-inksoft">
-              {line}
-            </p>
-          </div>
-        </div>
+      <Card>
+        <h1 className="text-2xl font-extrabold sm:text-3xl">
+          Selam{name ? ` ${name}` : " şampiyon"}!
+        </h1>
+        <p className="mt-1 text-sm font-bold text-inksoft">{line}</p>
       </Card>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Card className="!p-4 text-center">
-          <p className="text-3xl">🗓️</p>
-          <p className="font-display text-2xl font-extrabold text-grape">{daysLeft}</p>
+          <p className="font-display text-2xl font-extrabold text-grape">{ready ? daysLeft : "–"}</p>
           <p className="text-xs font-bold text-inksoft">gün kaldı (MÜYYES)</p>
         </Card>
         <Card className="!p-4 text-center">
-          <p className="text-3xl">🔥</p>
           <p className="font-display text-2xl font-extrabold text-berry">{state.streak}</p>
           <p className="text-xs font-bold text-inksoft">günlük seri</p>
         </Card>
         <Card className="!p-4 text-center">
-          <p className="text-3xl">🧠</p>
           <p className="font-display text-2xl font-extrabold text-mint">{learnedCount}</p>
           <p className="text-xs font-bold text-inksoft">öğrenilen kelime</p>
         </Card>
         <Card className="!p-4 text-center">
-          <p className="text-3xl">👑</p>
           <p className="font-display text-2xl font-extrabold text-sun">Sv. {levelInfo.level}</p>
           <p className="text-xs font-bold text-inksoft">{levelInfo.title}</p>
         </Card>
       </div>
 
+      {ready ? (
+        <Card>
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <h2 className="text-lg font-extrabold">Sınav planı</h2>
+            <Link href="/ayarlar" className="text-sm font-bold text-grape hover:underline">
+              {examDateTr}
+              {state.settings.examDateSet ? "" : " (varsayılan, değiştir)"}
+            </Link>
+          </div>
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <Chip className="bg-grapesoft text-grape">{plan.phase.name}</Chip>
+            <span className="text-sm font-bold text-inksoft">
+              {plan.weeksLeft > 0 ? `${plan.weeksLeft} hafta ${daysLeft % 7} gün kaldı` : `${daysLeft} gün kaldı`}
+            </span>
+          </div>
+          <p className="mt-3 text-[15px]">{plan.phase.focus}</p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-3">
+            <div className="rounded-2xl bg-paper p-3">
+              <p className="font-display text-xl font-extrabold text-ocean">
+                {plan.wordsPerDay > 0 ? plan.wordsPerDay : "Bitti"}
+              </p>
+              <p className="text-xs font-bold text-inksoft">
+                {plan.wordsPerDay > 0 ? `yeni kelime / gün (${newWordsAvailable} kaldı)` : "tüm kelimeler açıldı, tekrara devam"}
+              </p>
+            </div>
+            <div className="rounded-2xl bg-paper p-3">
+              <p className="font-display text-xl font-extrabold text-mint">
+                {plan.topicsPerWeek > 0 ? plan.topicsPerWeek : "Bitti"}
+              </p>
+              <p className="text-xs font-bold text-inksoft">
+                {plan.topicsPerWeek > 0 ? `gramer konusu / hafta (${topicsLeft} kaldı)` : "tüm konular açıldı, zayıflara dön"}
+              </p>
+            </div>
+            <div className="rounded-2xl bg-paper p-3">
+              <p className="font-display text-base font-extrabold text-berry">{plan.phase.exams}</p>
+              <p className="text-xs font-bold text-inksoft">deneme temposu</p>
+            </div>
+          </div>
+        </Card>
+      ) : null}
+
       <Card>
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-lg font-extrabold">⚡ Bugünkü hedef</h2>
+          <h2 className="text-lg font-extrabold">Bugünkü hedef</h2>
           <span className="font-bold text-inksoft">
             {todayXp} / {state.settings.dailyGoal} XP
           </span>
         </div>
         <ProgressBar value={todayXp} max={state.settings.dailyGoal} accent="sun" />
         {todayXp >= state.settings.dailyGoal ? (
-          <p className="mt-2 text-sm font-bold text-mintdark">Hedef tamam, seri güvende! 🔥</p>
+          <p className="mt-2 text-sm font-bold text-mintdark">Hedef tamam, seri güvende!</p>
         ) : (
           <p className="mt-2 text-sm font-bold text-inksoft">
             Serini korumak için {Math.max(0, state.settings.dailyGoal - todayXp)} XP daha topla.
@@ -109,7 +140,7 @@ export default function Dashboard() {
       </Card>
 
       <Card>
-        <h2 className="mb-3 text-lg font-extrabold">🗺️ Günün görevleri</h2>
+        <h2 className="mb-3 text-lg font-extrabold">Günün görevleri</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {quests.map((q) => {
             const count = Math.min(state.questCounts[q.kind] ?? 0, q.target);
@@ -124,10 +155,10 @@ export default function Dashboard() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold">
-                    {q.emoji} {q.label}
+                    {q.label}
                   </span>
                   <span className="text-sm font-extrabold text-inksoft">
-                    {done ? "✅" : `+${q.xp} XP`}
+                    {done ? "Tamam" : `+${q.xp} XP`}
                   </span>
                 </div>
                 <ProgressBar value={done ? q.target : count} max={q.target} accent="mint" className="mt-2 !h-2.5" />
@@ -136,33 +167,33 @@ export default function Dashboard() {
           })}
         </div>
         <p className="mt-3 text-center text-sm font-bold text-inksoft">
-          4 görevi de bitirene 👑 +150 bonus XP var!
+          4 görevi de bitirene +150 bonus XP var!
         </p>
       </Card>
 
       <Card>
-        <h2 className="mb-3 text-lg font-extrabold">🚀 Bugün ne yapsak?</h2>
+        <h2 className="mb-3 text-lg font-extrabold">Bugün ne yapsak?</h2>
         <div className="flex flex-col gap-2">
           {ready && dueCount > 0 ? (
             <LinkButton href="/kelime/tekrar" accent="grape" className="justify-between">
-              <span>🃏 {dueCount} kelime tekrar bekliyor</span> <span>→</span>
+              <span>{dueCount} kelime tekrar bekliyor</span> <span>→</span>
             </LinkButton>
           ) : null}
           {ready && newWordsAvailable > 0 ? (
             <LinkButton href="/kelime/ogren" accent="ocean" className="justify-between">
-              <span>✨ 10 yeni kelime öğren</span> <span>→</span>
+              <span>10 yeni kelime öğren</span> <span>→</span>
             </LinkButton>
           ) : null}
           {nextTopic ? (
             <LinkButton href={`/gramer/${nextTopic.id}`} accent="mint" className="justify-between">
               <span>
-                {nextTopic.emoji} Sıradaki konu: {nextTopic.title}
+                Sıradaki konu: {nextTopic.title}
               </span>
               <span>→</span>
             </LinkButton>
           ) : null}
           <LinkButton href="/oyunlar" accent="sun" className="justify-between">
-            <span>🎮 Beynini oyunla kandır</span> <span>→</span>
+            <span>Beynini oyunla kandır</span> <span>→</span>
           </LinkButton>
         </div>
       </Card>
@@ -179,10 +210,8 @@ export default function Dashboard() {
               href={m.href}
               className="block rounded-3xl border-2 border-line bg-card p-4 transition-all hover:-translate-y-1 hover:border-grape/40"
             >
-              <span className={`grid size-11 place-items-center rounded-2xl text-2xl ${m.bg}`}>
-                {m.emoji}
-              </span>
-              <p className="mt-2 font-display font-extrabold">{m.title}</p>
+              <span className={`block h-2 w-10 rounded-full ${m.bg}`} />
+              <p className="mt-3 font-display font-extrabold">{m.title}</p>
               <p className="text-xs font-bold text-inksoft">{m.desc}</p>
             </Link>
           </motion.div>
@@ -194,7 +223,6 @@ export default function Dashboard() {
         className="flex items-center justify-between rounded-3xl border-2 border-line bg-card p-4 transition-all hover:-translate-y-0.5 hover:border-grape/40"
       >
         <span className="flex items-center gap-3 font-display font-extrabold">
-          <span className="grid size-11 place-items-center rounded-2xl bg-oceansoft text-2xl">🧭</span>
           MÜYYES Rehberi: format, kurallar ve bölüm taktikleri
         </span>
         <span className="text-xl">→</span>
@@ -202,7 +230,7 @@ export default function Dashboard() {
 
       <Card>
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-lg font-extrabold">📊 Son 7 gün</h2>
+          <h2 className="text-lg font-extrabold">Son 7 gün</h2>
           <Chip className="bg-grapesoft text-grape">
             {doneCount}/{totalPieces} parça bitti
           </Chip>

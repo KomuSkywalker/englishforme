@@ -13,7 +13,6 @@ export default function KarisikPage() {
     <BankQuiz
       bank={bank}
       count={12}
-      emoji="🌪️"
       title="Karışık Tur"
       desc="Cümle tamamlama, yakın anlam ve diyalog karışık gelir, tıpkı sınavdaki gibi."
       backHref="/uoe"

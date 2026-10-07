@@ -21,7 +21,6 @@ export default function DinlemeDetay() {
   if (!track) {
     return (
       <Card className="text-center">
-        <p className="text-5xl">🔇</p>
         <p className="mt-2 font-display text-xl font-extrabold">Parça bulunamadı</p>
         <LinkButton href="/dinleme" accent="grape" className="mt-4">
           Stüdyoya dön
@@ -33,7 +32,7 @@ export default function DinlemeDetay() {
   if (result) {
     return (
       <div>
-        <PageHeader emoji="🎧" title={track.title} />
+        <PageHeader title={track.title} />
         <Result
           correct={result.correct}
           total={result.total}
@@ -52,7 +51,7 @@ export default function DinlemeDetay() {
 
   return (
     <div>
-      <PageHeader emoji="🎧" title={track.title} desc={track.topicTr} />
+      <PageHeader title={track.title} desc={track.topicTr} />
       <div className="flex flex-col gap-4">
         <TtsPlayer script={track.script} onComplete={() => setListened(true)} />
         {phase === "listen" ? (
@@ -67,7 +66,7 @@ export default function DinlemeDetay() {
             </Button>
             {!listened ? (
               <p className="text-sm font-bold text-inksoft">
-                Önce parçayı sonuna kadar dinle, sorular sonra açılır. 😉
+                Önce parçayı sonuna kadar dinle, sorular sonra açılır.
               </p>
             ) : null}
           </div>
@@ -89,7 +88,7 @@ export default function DinlemeDetay() {
                 onClick={() => setShowScript((v) => !v)}
                 className="w-full cursor-pointer text-left font-display font-extrabold"
               >
-                📜 Metni göster (takılırsan) {showScript ? "▲" : "▼"}
+                Metni göster (takılırsan) {showScript ? "▲" : "▼"}
               </button>
               {showScript ? (
                 <div className="mt-3 flex flex-col gap-1.5">

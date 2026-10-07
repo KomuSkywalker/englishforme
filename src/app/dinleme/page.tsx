@@ -10,7 +10,6 @@ export default function DinlemeHub() {
   return (
     <div>
       <PageHeader
-        emoji="🎧"
         title="Dinleme Stüdyosu"
         desc="Bilgisayarın sana okuyacak, sen dinleyip soruları çözeceksin. Gerçek sınavda da 2 dinleme parçası var!"
       />
@@ -26,11 +25,11 @@ export default function DinlemeHub() {
             >
               <div className="flex items-center justify-between">
                 <Chip className="bg-sunsoft text-sundark">{t.topicTr}</Chip>
-                {score !== undefined ? <Chip className="bg-grapesoft text-grape">%{score} ✅</Chip> : null}
+                {score !== undefined ? <Chip className="bg-grapesoft text-grape">%{score}</Chip> : null}
               </div>
               <p className="mt-2 font-display text-lg font-extrabold leading-tight">{t.title}</p>
               <div className="mt-2 flex gap-2">
-                <Chip className="bg-paper text-inksoft">{isDialog ? "💬 diyalog" : "🎙️ monolog"}</Chip>
+                <Chip className="bg-paper text-inksoft">{isDialog ? "diyalog" : "monolog"}</Chip>
                 <Chip className="bg-paper text-inksoft">{t.questions.length} soru</Chip>
               </div>
             </Link>

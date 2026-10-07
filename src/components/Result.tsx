@@ -10,10 +10,10 @@ import type { WrongItem } from "./QuizEngine";
 const letters = ["A", "B", "C", "D", "E"];
 
 function band(pct: number) {
-  if (pct >= 90) return { emoji: "🏆", msg: "Efsanesin! Bu konu senden sorulur." };
-  if (pct >= 70) return { emoji: "🌟", msg: "Çok iyi! Ufak rötuşlarla mükemmel olur." };
-  if (pct >= 50) return { emoji: "💪", msg: "Fena değil, biraz daha pratikle oturur." };
-  return { emoji: "🌱", msg: "Sorun yok, tekrar edince kafanda netleşecek." };
+  if (pct >= 90) return { msg: "Efsanesin! Bu konu senden sorulur." };
+  if (pct >= 70) return { msg: "Çok iyi! Ufak rötuşlarla mükemmel olur." };
+  if (pct >= 50) return { msg: "Fena değil, biraz daha pratikle oturur." };
+  return { msg: "Sorun yok, tekrar edince kafanda netleşecek." };
 }
 
 export function Result({
@@ -55,9 +55,6 @@ export function Result({
   return (
     <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }}>
       <div className="rounded-3xl border-2 border-line bg-card p-8 text-center">
-        <div className="mx-auto mb-3 grid size-20 place-items-center rounded-full bg-sunsoft text-5xl anim-pop">
-          {info.emoji}
-        </div>
         <h2 className="text-3xl font-extrabold">
           {correct} / {total}
         </h2>
@@ -65,14 +62,14 @@ export function Result({
         <p className="mx-auto mt-2 max-w-sm text-inksoft">{info.msg}</p>
         {xpNote ? (
           <p className="mt-3 inline-block rounded-full bg-sunsoft px-4 py-1.5 font-bold text-sundark">
-            ⚡ {xpNote}
+            {xpNote}
           </p>
         ) : null}
         {extra}
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           {onRetry ? (
             <Button accent="grape" onClick={onRetry}>
-              🔄 Tekrar dene
+              Tekrar dene
             </Button>
           ) : null}
           {backHref ? (

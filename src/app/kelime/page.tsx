@@ -19,7 +19,6 @@ export default function KelimeHub() {
   return (
     <div className="flex flex-col gap-5">
       <PageHeader
-        emoji="🃏"
         title="Kelime Kampı"
         desc={`${words.length} sınav kelimesi seni bekliyor. Kutular yükseldikçe kelime kalıcı hafızana geçer.`}
       />
@@ -30,7 +29,7 @@ export default function KelimeHub() {
           accent={dueCount > 0 ? "grape" : "ghost"}
           className="!justify-between !p-5 text-lg"
         >
-          <span>🔁 Tekrar zamanı</span>
+          <span>Tekrar zamanı</span>
           <span className="rounded-full bg-white/20 px-3 py-0.5">{dueCount}</span>
         </LinkButton>
         <LinkButton
@@ -38,21 +37,21 @@ export default function KelimeHub() {
           accent={fresh > 0 ? "ocean" : "ghost"}
           className="!justify-between !p-5 text-lg"
         >
-          <span>✨ Yeni kelimeler</span>
+          <span>Yeni kelimeler</span>
           <span className="rounded-full bg-white/20 px-3 py-0.5">10</span>
         </LinkButton>
         <LinkButton href="/kelime/quiz" accent="sun" className="!justify-between !p-5 text-lg">
-          <span>⚡ Hızlı test</span>
+          <span>Hızlı test</span>
           <span>12 soru</span>
         </LinkButton>
         <LinkButton href="/kelime/liste" accent="mint" className="!justify-between !p-5 text-lg">
-          <span>📚 Kelime destesi</span>
+          <span>Kelime destesi</span>
           <span>{inDeck}/{words.length}</span>
         </LinkButton>
       </div>
 
       <Card>
-        <h2 className="mb-2 text-lg font-extrabold">🧠 Hafıza yolculuğun</h2>
+        <h2 className="mb-2 text-lg font-extrabold">Hafıza yolculuğun</h2>
         <ProgressBar value={learnedCount} max={words.length} accent="mint" />
         <p className="mt-2 text-sm font-bold text-inksoft">
           {learnedCount} öğrenildi · {mastered} ustalık · {fresh} keşfedilmedi

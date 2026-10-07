@@ -45,7 +45,7 @@ export default function ListePage() {
 
   return (
     <div>
-      <PageHeader emoji="📚" title="Kelime Destesi" desc={`${words.length} kelimelik MÜYYES cephaneliğin.`} />
+      <PageHeader title="Kelime Destesi" desc={`${words.length} kelimelik MÜYYES cephaneliğin.`} />
       <div className="mb-4 flex flex-col gap-3 sm:flex-row">
         <input
           value={q}
@@ -74,9 +74,9 @@ export default function ListePage() {
           const status = !entry
             ? { label: "yeni", cls: "bg-line text-inksoft" }
             : isMastered(entry)
-              ? { label: "usta 🏆", cls: "bg-mintsoft text-mintdark" }
+              ? { label: "usta", cls: "bg-mintsoft text-mintdark" }
               : isLearned(entry)
-                ? { label: "öğrenildi ✅", cls: "bg-mintsoft text-mintdark" }
+                ? { label: "öğrenildi", cls: "bg-mintsoft text-mintdark" }
                 : { label: `kutu ${entry.box}`, cls: "bg-sunsoft text-sundark" };
           const isOpen = open === w.id;
           return (

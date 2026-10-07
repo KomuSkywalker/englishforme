@@ -5,7 +5,6 @@ export const grammarTopics1: GrammarTopic[] = [
     id: "present-tenses",
     title: "Present Simple & Continuous",
     titleTr: "Geniş Zaman ve Şimdiki Zaman",
-    emoji: "⏰",
     level: 1,
     summary: "Şu an mı oluyor, her zaman mı? Bu ikiliyi çözen, sınavın yarısını çözer!",
     sections: [
@@ -157,7 +156,6 @@ export const grammarTopics1: GrammarTopic[] = [
     id: "past-tenses",
     title: "Past Simple & Continuous",
     titleTr: "Geçmiş Zaman: Simple ve Continuous",
-    emoji: "🕰️",
     level: 1,
     summary: "Geçmişi anlatmanın iki yolu: olup biteni ve o sırada süreni ustaca ayır.",
     sections: [
@@ -313,7 +311,6 @@ export const grammarTopics1: GrammarTopic[] = [
     id: "present-perfect",
     title: "Present Perfect (Simple & Continuous)",
     titleTr: "Yakın Geçmiş Zaman",
-    emoji: "🔗",
     level: 2,
     summary: "Türkçede tam karşılığı olmayan ama sınavın en sevdiği zaman: geçmişle bugünü bağlayan köprü.",
     sections: [
@@ -479,7 +476,6 @@ export const grammarTopics1: GrammarTopic[] = [
     id: "past-perfect",
     title: "Past Perfect & Used To",
     titleTr: "Mişli Geçmiş ve Used To",
-    emoji: "⏪",
     level: 2,
     summary: "Geçmişin geçmişini ve eski alışkanlıklarını anlatmanın şık yolları.",
     sections: [
@@ -636,7 +632,6 @@ export const grammarTopics1: GrammarTopic[] = [
     id: "future-forms",
     title: "Future Forms",
     titleTr: "Gelecek Zaman Biçimleri",
-    emoji: "🚀",
     level: 1,
     summary: "Will tek başına yetmez: İngilizcede geleceği anlatmanın tam dört farklı yolu var.",
     sections: [
@@ -799,7 +794,6 @@ export const grammarTopics1: GrammarTopic[] = [
     id: "modals",
     title: "Modals & Semi-modals",
     titleTr: "Kip Fiilleri",
-    emoji: "🎛️",
     level: 2,
     summary: "Küçük ama güçlü fiiller: zorunluluk, tavsiye, olasılık ve çıkarım hepsi bu ailede.",
     sections: [
@@ -965,7 +959,6 @@ export const grammarTopics1: GrammarTopic[] = [
     id: "conditionals",
     title: "Conditionals & Wish",
     titleTr: "Koşul Cümleleri ve Keşke",
-    emoji: "🎲",
     level: 2,
     summary: "Şartlar, hayaller ve keşkeler: if'i çözen, MÜYYES'in en garantili sorularını cebe atar.",
     sections: [
@@ -1128,7 +1121,6 @@ export const grammarTopics1: GrammarTopic[] = [
     id: "passive",
     title: "Passive Voice",
     titleTr: "Edilgen Çatı",
-    emoji: "🔄",
     level: 2,
     summary: "Faili değil eylemi öne çıkaran yapı: be + V3 formülüyle her zamanı edilgene çevir.",
     sections: [

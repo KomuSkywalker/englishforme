@@ -10,7 +10,7 @@ import { TtsPlayer } from "@/components/Speech";
 import { QuizEngine, type WrongItem } from "@/components/QuizEngine";
 import { Result } from "@/components/Result";
 
-type SectionResult = { title: string; emoji: string; correct: number; total: number };
+type SectionResult = { title: string; correct: number; total: number };
 
 export function ExamRunner({
   kind,
@@ -80,7 +80,7 @@ export function ExamRunner({
     const section = sections[sectionIndex];
     const nextResults = [
       ...results,
-      { title: section.title, emoji: section.emoji, correct, total },
+      { title: section.title, correct, total },
     ];
     const nextWrong = [...wrong, ...sectionWrong];
     if (sectionIndex === sections.length - 1) {
@@ -112,16 +112,15 @@ export function ExamRunner({
   if (phase === "start") {
     return (
       <div>
-        <PageHeader emoji="🎯" title={title} desc="Gerçek sınav havası: süre işler, açıklamalar sınav bitince gelir." />
+        <PageHeader title={title} desc="Gerçek sınav havası: süre işler, açıklamalar sınav bitince gelir." />
         <Card className="text-center">
-          <p className="text-6xl">⏳</p>
           <p className="mt-3 font-display text-xl font-extrabold">
             {totalQuestions} soru · {minutes} dakika
           </p>
           <div className="mx-auto mt-3 flex max-w-md flex-wrap justify-center gap-2">
             {sections.map((s, i) => (
               <Chip key={i} className="bg-paper text-inksoft">
-                {s.emoji} {s.title} ({s.exercises.length})
+                {s.title} ({s.exercises.length})
               </Chip>
             ))}
           </div>
@@ -129,7 +128,7 @@ export function ExamRunner({
             Geçme barajı yüzde 60. Süre bitince sınav otomatik kapanır!
           </p>
           <Button accent="grape" className="mt-5 text-lg" onClick={() => setPhase("intro")}>
-            🚀 Sınavı başlat
+            Sınavı başlat
           </Button>
         </Card>
       </div>
@@ -140,23 +139,23 @@ export function ExamRunner({
     const pct = Math.round((correctSoFar / totalQuestions) * 100);
     return (
       <div>
-        <PageHeader emoji="🎯" title={title} />
+        <PageHeader title={title} />
         {pct >= 60 ? (
           <Card className="mb-4 border-mint bg-mintsoft text-center">
             <p className="font-display text-xl font-extrabold text-mintdark">
-              🎓 Barajı geçtin! Gerçek sınavda da bu kafayla devam.
+              Barajı geçtin! Gerçek sınavda da bu kafayla devam.
             </p>
           </Card>
         ) : (
           <Card className="mb-4 border-sun bg-sunsoft text-center">
             <p className="font-display text-lg font-extrabold text-sundark">
-              Baraj yüzde 60. Yanlışlarını incele, zayıf konulara geri dön, bir daha dene! 💪
+              Baraj yüzde 60. Yanlışlarını incele, zayıf konulara geri dön, bir daha dene!
             </p>
           </Card>
         )}
         {timedOut ? (
           <Card className="mb-4 text-center">
-            <p className="font-bold text-berrydark">⏰ Süre doldu, kalan sorular boş sayıldı.</p>
+            <p className="font-bold text-berrydark">Süre doldu, kalan sorular boş sayıldı.</p>
           </Card>
         ) : null}
         <Result
@@ -175,7 +174,7 @@ export function ExamRunner({
                   className="flex items-center justify-between rounded-xl bg-paper px-3 py-2 text-sm font-bold"
                 >
                   <span>
-                    {r.emoji} {r.title}
+                    {r.title}
                   </span>
                   <span className={r.correct / r.total >= 0.6 ? "text-mintdark" : "text-berrydark"}>
                     {r.correct}/{r.total}
@@ -196,20 +195,19 @@ export function ExamRunner({
           Bölüm {sectionIndex + 1}/{sections.length}
         </Chip>
         <Chip className="bg-paper text-inksoft">
-          {section.emoji} {section.title}
+          {section.title}
         </Chip>
         <span
           className={`ml-auto rounded-full px-4 py-1.5 font-display font-extrabold ${
             timeLeft <= 120 ? "bg-berrysoft text-berrydark" : "bg-sunsoft text-sundark"
           }`}
         >
-          ⏱️ {mm}:{ss}
+          Kalan süre {mm}:{ss}
         </span>
       </div>
 
       {phase === "intro" ? (
         <Card className="text-center">
-          <p className="text-5xl">{section.emoji}</p>
           <h2 className="mt-2 text-2xl font-extrabold">{section.title}</h2>
           <p className="mt-1 font-bold text-inksoft">{section.exercises.length} soru</p>
           {section.listening ? (
@@ -236,7 +234,7 @@ export function ExamRunner({
           {section.passage ? (
             <details open className="rounded-3xl border-2 border-line bg-card p-4">
               <summary className="cursor-pointer font-display font-extrabold">
-                📄 Metin (aç/kapa)
+                Metin (aç/kapa)
               </summary>
               <div className="mt-3">
                 {section.passage.split("\n\n").map((para, i) => (

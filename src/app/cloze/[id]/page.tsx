@@ -25,7 +25,6 @@ export default function ClozeDetay() {
   if (!passage) {
     return (
       <Card className="text-center">
-        <p className="text-5xl">🕳️</p>
         <p className="mt-2 font-display text-xl font-extrabold">Test bulunamadı</p>
         <LinkButton href="/cloze" accent="grape" className="mt-4">
           Testlere dön
@@ -66,7 +65,7 @@ export default function ClozeDetay() {
 
   return (
     <div>
-      <PageHeader emoji="🕳️" title={passage.title} desc="Boşluğa dokun, alttan doğru parçayı seç." />
+      <PageHeader title={passage.title} desc="Boşluğa dokun, alttan doğru parçayı seç." />
       <Card>
         <p className="text-[16px] leading-loose">
           {parts.map((part, i) => {
@@ -122,7 +121,7 @@ export default function ClozeDetay() {
           </Card>
           <div className="mt-4 flex justify-end">
             <Button accent="grape" disabled={!allFilled} onClick={check}>
-              Kontrol et ✅
+              Kontrol et
             </Button>
           </div>
         </>
@@ -137,7 +136,7 @@ export default function ClozeDetay() {
             onRetry={reset}
           />
           <Card>
-            <h2 className="mb-3 font-display text-lg font-extrabold">🔎 Boşluk boşluk açıklama</h2>
+            <h2 className="mb-3 font-display text-lg font-extrabold">Boşluk boşluk açıklama</h2>
             <div className="flex flex-col gap-2">
               {passage.blanks.map((b, i) => {
                 const ok = answers[i] === b.answer;

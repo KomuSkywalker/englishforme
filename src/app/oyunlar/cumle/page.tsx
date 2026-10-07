@@ -96,18 +96,17 @@ export default function CumleDizmePage() {
   if (finished) {
     return (
       <div>
-        <PageHeader emoji="🧱" title="Cümle Dizme" />
+        <PageHeader title="Cümle Dizme" />
         <Card className="text-center">
-          <p className="text-6xl anim-pop">{score >= 4 ? "🏆" : score >= 3 ? "🌟" : "💪"}</p>
-          <h2 className="mt-2 text-3xl font-extrabold">
+          <h2 className="text-3xl font-extrabold">
             {score} / {ROUNDS} cümle
           </h2>
           <p className="mt-3 inline-block rounded-full bg-sunsoft px-4 py-1.5 font-bold text-sundark">
-            ⚡ Tur bonusu: +{score * 5} XP
+            Tur bonusu: +{score * 5} XP
           </p>
           <div className="mt-5 flex justify-center gap-3">
             <Button accent="mint" onClick={restart}>
-              🔄 Yeni cümleler
+              Yeni cümleler
             </Button>
             <LinkButton href="/oyunlar" accent="ghost">
               Oyun salonuna dön
@@ -122,7 +121,7 @@ export default function CumleDizmePage() {
 
   return (
     <div>
-      <PageHeader emoji="🧱" title="Cümle Dizme" desc="Kelimelere sırayla dokunup cümleyi inşa et." />
+      <PageHeader title="Cümle Dizme" desc="Kelimelere sırayla dokunup cümleyi inşa et." />
       <div className="mb-4 flex items-center gap-3">
         <ProgressBar value={roundIndex} max={ROUNDS} accent="mint" className="flex-1" />
         <span className="font-display font-extrabold text-inksoft">
@@ -144,7 +143,7 @@ export default function CumleDizmePage() {
       >
         {placed.length === 0 ? (
           <p className="text-center text-sm font-bold text-inksoft/60">
-            Cümlen burada oluşacak 👇 alttaki kelimelere dokun
+            Cümlen burada oluşacak, alttaki kelimelere dokun
           </p>
         ) : (
           <div className="flex flex-wrap gap-2">
@@ -178,7 +177,7 @@ export default function CumleDizmePage() {
       </div>
       {status === "wrong" ? (
         <p className="mt-3 text-center text-sm font-bold text-berrydark">
-          Olmadı, sıralamayla biraz daha oyna. Kelimeye dokununca geri çıkar. 🧐
+          Olmadı, sıralamayla biraz daha oyna. Kelimeye dokununca geri çıkar.
         </p>
       ) : null}
       <div className="mt-5 flex justify-end gap-3">
@@ -188,7 +187,7 @@ export default function CumleDizmePage() {
           </Button>
         ) : (
           <Button accent="grape" disabled={placed.length !== round.pieces.length} onClick={check}>
-            Kontrol et ✅
+            Kontrol et
           </Button>
         )}
       </div>

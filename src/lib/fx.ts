@@ -48,7 +48,7 @@ export function starRain() {
   });
 }
 
-export type ToastPayload = { emoji: string; title: string; body?: string };
+export type ToastPayload = { title: string; body?: string };
 
 export function toast(payload: ToastPayload) {
   if (typeof window === "undefined") return;

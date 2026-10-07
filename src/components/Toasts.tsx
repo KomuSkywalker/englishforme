@@ -32,11 +32,8 @@ export function Toasts() {
             initial={{ opacity: 0, y: -16, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, x: 40 }}
-            className="flex items-center gap-3 rounded-2xl border-2 border-line bg-card p-3 shadow-lg"
+            className="rounded-2xl border-2 border-line border-l-4 border-l-grape bg-card p-3 shadow-lg"
           >
-            <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-sunsoft text-2xl">
-              {item.emoji}
-            </span>
             <div className="min-w-0">
               <p className="font-display font-bold leading-tight">{item.title}</p>
               {item.body ? <p className="text-sm text-inksoft">{item.body}</p> : null}

@@ -8,7 +8,6 @@ export default function YakinPage() {
     <BankQuiz
       bank={restatement}
       count={10}
-      emoji="♻️"
       title="Restatement"
       desc="Verilen cümleye anlamca en yakın cümleyi seç. Kalıp dönüşümlerini (so...that, despite, passive) kolla."
       backHref="/uoe"

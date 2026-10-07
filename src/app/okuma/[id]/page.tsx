@@ -20,7 +20,6 @@ export default function OkumaDetay() {
   if (!passage) {
     return (
       <Card className="text-center">
-        <p className="text-5xl">🔍</p>
         <p className="mt-2 font-display text-xl font-extrabold">Parça bulunamadı</p>
         <LinkButton href="/okuma" accent="grape" className="mt-4">
           Okuma rafına dön
@@ -32,7 +31,7 @@ export default function OkumaDetay() {
   if (result) {
     return (
       <div>
-        <PageHeader emoji="📖" title={passage.title} />
+        <PageHeader title={passage.title} />
         <Result
           correct={result.correct}
           total={result.total}
@@ -51,7 +50,7 @@ export default function OkumaDetay() {
 
   return (
     <div>
-      <PageHeader emoji="📖" title={passage.title} desc={passage.topicTr} />
+      <PageHeader title={passage.title} desc={passage.topicTr} />
       {phase === "read" ? (
         <div className="flex flex-col gap-4">
           <Card>
@@ -72,7 +71,7 @@ export default function OkumaDetay() {
               onClick={() => setShowGlossary((v) => !v)}
               className="w-full cursor-pointer text-left font-display font-extrabold"
             >
-              📔 Mini sözlük {showGlossary ? "▲" : "▼"}
+              Mini sözlük {showGlossary ? "▲" : "▼"}
             </button>
             {showGlossary ? (
               <div className="mt-3 flex flex-wrap gap-2">
@@ -94,7 +93,7 @@ export default function OkumaDetay() {
         <div className="flex flex-col gap-4">
           <details className="rounded-3xl border-2 border-line bg-card p-4">
             <summary className="cursor-pointer font-display font-extrabold">
-              📄 Metni tekrar aç
+              Metni tekrar aç
             </summary>
             <div className="mt-3">
               {passage.text.split("\n\n").map((para, i) => (

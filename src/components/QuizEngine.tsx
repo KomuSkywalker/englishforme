@@ -130,7 +130,7 @@ export function QuizEngine({
             animate={{ scale: 1 }}
             className="shrink-0 rounded-full bg-sunsoft px-2.5 py-1 text-sm font-extrabold text-sundark"
           >
-            🔥 x{combo}
+            Seri x{combo}
           </motion.span>
         ) : null}
       </div>
@@ -188,7 +188,7 @@ export function QuizEngine({
               }`}
             >
               <p className="font-display font-extrabold">
-                {pickedCorrect ? "Doğru! 🎉" : `Doğru cevap: ${letters[ex.answer]}) ${ex.options[ex.answer]}`}
+                {pickedCorrect ? "Doğru!" : `Doğru cevap: ${letters[ex.answer]}) ${ex.options[ex.answer]}`}
               </p>
               <p className="mt-1 text-sm">{ex.explain}</p>
             </motion.div>

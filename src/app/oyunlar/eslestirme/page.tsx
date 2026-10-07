@@ -93,27 +93,26 @@ export default function EslestirmePage() {
 
   return (
     <div>
-      <PageHeader emoji="🧠" title="Eşleştirme" desc="İngilizce kelimeyi Türkçe anlamıyla eşleştir." />
+      <PageHeader title="Eşleştirme" desc="İngilizce kelimeyi Türkçe anlamıyla eşleştir." />
       <div className="mb-4 flex items-center gap-3 font-display font-extrabold">
-        <span className="rounded-full bg-sunsoft px-4 py-1.5">⏱️ {seconds}s</span>
-        <span className="rounded-full bg-berrysoft px-4 py-1.5">❌ {mistakes}</span>
+        <span className="rounded-full bg-sunsoft px-4 py-1.5">Süre {seconds}s</span>
+        <span className="rounded-full bg-berrysoft px-4 py-1.5">Hata {mistakes}</span>
         <span className="ml-auto rounded-full bg-grapesoft px-4 py-1.5">
           {matched.size / 2} / {tiles.length / 2}
         </span>
       </div>
       {finished ? (
         <Card className="text-center">
-          <p className="text-6xl anim-pop">🏆</p>
-          <h2 className="mt-2 text-2xl font-extrabold">{seconds} saniyede bitirdin!</h2>
+          <h2 className="text-2xl font-extrabold">{seconds} saniyede bitirdin!</h2>
           <p className="mt-1 text-inksoft">
             {mistakes === 0 ? "Hem de hiç hatasız, canavarsın!" : `${mistakes} yanlış deneme oldu, sorun değil.`}
           </p>
           <p className="mt-3 inline-block rounded-full bg-sunsoft px-4 py-1.5 font-bold text-sundark">
-            ⚡ +{totalXp} XP (hız bonusu: {bonus})
+            +{totalXp} XP (hız bonusu: {bonus})
           </p>
           <div className="mt-5 flex justify-center gap-3">
             <Button accent="grape" onClick={restart}>
-              🔄 Yeni tur
+              Yeni tur
             </Button>
             <LinkButton href="/oyunlar" accent="ghost">
               Oyun salonuna dön
@@ -142,7 +141,7 @@ export default function EslestirmePage() {
                 } ${tile.side === "en" ? "font-display text-lg" : "text-[15px]"}`}
                 disabled={isMatched}
               >
-                {isMatched ? "✅" : tile.text}
+                {tile.text}
               </motion.button>
             );
           })}

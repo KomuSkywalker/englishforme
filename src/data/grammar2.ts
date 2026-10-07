@@ -5,7 +5,6 @@ export const grammarTopics2: GrammarTopic[] = [
     id: "relative-clauses",
     title: "Relative Clauses",
     titleTr: "İlgi Cümlecikleri",
-    emoji: "🔗",
     level: 2,
     summary: "who, which, where derken kaybolma: iki cümleyi tek zincirde birleştirmenin en şık yolu burada!",
     sections: [
@@ -75,7 +74,6 @@ export const grammarTopics2: GrammarTopic[] = [
     id: "noun-clauses",
     title: "Noun Clauses & Reported Speech",
     titleTr: "İsim Cümlecikleri ve Dolaylı Anlatım",
-    emoji: "🗣️",
     level: 3,
     summary: "\"Ne dediğini bilmiyorum\" cümlesini İngilizce kurarken kelime sırası şaşıranlar buraya: dedikodu bile gramer ister!",
     sections: [
@@ -153,7 +151,6 @@ export const grammarTopics2: GrammarTopic[] = [
     id: "gerund-infinitive",
     title: "Gerunds & Infinitives",
     titleTr: "Gerund ve Infinitive: -ing mi to mu?",
-    emoji: "🎯",
     level: 2,
     summary: "enjoy doing ama want to do: hangi fiil neyi sever sorusunun cevabı ezber değil, mantık ve bolca örnekle burada!",
     sections: [
@@ -223,7 +220,6 @@ export const grammarTopics2: GrammarTopic[] = [
     id: "conjunctions",
     title: "Linkers & Conjunctions",
     titleTr: "Bağlaçlar ve Geçiş İfadeleri",
-    emoji: "🌉",
     level: 2,
     summary: "MÜYYES'in en çok soru çıkardığı konu: although ile despite'ın farkını çözen, sınavın yarısını cebine koyar!",
     sections: [
@@ -302,7 +298,6 @@ export const grammarTopics2: GrammarTopic[] = [
     id: "comparatives",
     title: "Comparatives & Superlatives",
     titleTr: "Karşılaştırma ve Üstünlük",
-    emoji: "📊",
     level: 1,
     summary: "Daha iyi, en iyi, olabildiğince iyi: kıyaslamanın tüm tonlarını tek konuda topladık, gerisi antrenman!",
     sections: [
@@ -371,7 +366,6 @@ export const grammarTopics2: GrammarTopic[] = [
     id: "articles-quantifiers",
     title: "Articles & Quantifiers",
     titleTr: "Artikeller ve Miktar Belirteçleri",
-    emoji: "🧮",
     level: 1,
     summary: "a mı an mi the mı hiçbiri mi? Türkçede olmayan bu minik kelimeler sınavda kolay puan, yeter ki kuralları tanı!",
     sections: [
@@ -449,7 +443,6 @@ export const grammarTopics2: GrammarTopic[] = [
     id: "prepositions",
     title: "Prepositions & Dependent Prepositions",
     titleTr: "Edatlar ve Bağımlı Edatlar",
-    emoji: "📍",
     level: 2,
     summary: "in mi on mu at mi? Türkçeden çeviri burada işlemez: doğru edatı fiiliyle, sıfatıyla paket halinde öğreniyoruz!",
     sections: [
@@ -527,7 +520,6 @@ export const grammarTopics2: GrammarTopic[] = [
     id: "adjective-adverb",
     title: "Adjectives vs Adverbs & Participles",
     titleTr: "Sıfat mı Zarf mı? ve Ortaçlar",
-    emoji: "🎭",
     level: 2,
     summary: "bored musun boring misin? Bu soruya gülümseyerek doğru cevap verebiliyorsan bu konu tamamdır!",
     sections: [

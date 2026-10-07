@@ -17,13 +17,12 @@ export default function YazmaHub() {
   return (
     <div>
       <PageHeader
-        emoji="✍️"
         title="Yazma Atölyesi"
         desc="MÜYYES'te 250 kelimelik essay yazacaksın. Burada plan kur, kalıpları kap, taslağını yaz."
       />
       <Card className="mb-4 bg-sunsoft/60">
         <p className="text-sm font-bold">
-          💡 Sınav formatı: sana 2 konu verilir, birini seçer ve yaklaşık 250 kelimelik bir essay
+          Sınav formatı: sana 2 konu verilir, birini seçer ve yaklaşık 250 kelimelik bir essay
           yazarsın. Şablon hep aynı: giriş (hook + tez), 2 gövde paragrafı, sonuç.
         </p>
       </Card>
@@ -38,7 +37,7 @@ export default function YazmaHub() {
             >
               <div className="flex items-center justify-between">
                 <Chip className={typeCls[p.type]}>{p.typeTr}</Chip>
-                {done ? <span className="text-xl">✅</span> : null}
+                {done ? <Chip className="bg-mintsoft text-mintdark">Tamamlandı</Chip> : null}
               </div>
               <p className="mt-2 text-[15px] font-bold leading-snug">{p.prompt}</p>
             </Link>

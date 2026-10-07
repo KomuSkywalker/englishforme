@@ -13,7 +13,6 @@ export default function OkumaHub() {
   return (
     <div>
       <PageHeader
-        emoji="📖"
         title="Okuma Rafı"
         desc="Merak uyandıran parçalar, MÜYYES tarzı sorular. Sözlük hep yanında."
       />
@@ -29,7 +28,7 @@ export default function OkumaHub() {
               <div className="flex items-center justify-between">
                 <Chip className="bg-mintsoft text-mintdark">{p.topicTr}</Chip>
                 {score !== undefined ? (
-                  <Chip className="bg-grapesoft text-grape">%{score} ✅</Chip>
+                  <Chip className="bg-grapesoft text-grape">%{score}</Chip>
                 ) : null}
               </div>
               <p className="mt-2 font-display text-lg font-extrabold leading-tight">{p.title}</p>

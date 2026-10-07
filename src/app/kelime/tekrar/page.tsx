@@ -27,9 +27,8 @@ export default function TekrarPage() {
   if (!ready) {
     return (
       <div>
-        <PageHeader emoji="🔁" title="Kelime Tekrarı" />
+        <PageHeader title="Kelime Tekrarı" />
         <Card className="text-center">
-          <p className="anim-float text-5xl">🦜</p>
           <p className="mt-2 font-bold text-inksoft">Kutular açılıyor...</p>
         </Card>
       </div>
@@ -39,7 +38,7 @@ export default function TekrarPage() {
   if (result) {
     return (
       <div>
-        <PageHeader emoji="🔁" title="Kelime Tekrarı" />
+        <PageHeader title="Kelime Tekrarı" />
         <Result
           correct={result.correct}
           total={result.total}
@@ -59,19 +58,18 @@ export default function TekrarPage() {
   if (exercises.length === 0) {
     return (
       <div>
-        <PageHeader emoji="🔁" title="Kelime Tekrarı" />
+        <PageHeader title="Kelime Tekrarı" />
         <Card className="text-center">
-          <p className="text-5xl">😎</p>
           <p className="mt-2 font-display text-xl font-extrabold">Şu an tekrar bekleyen kelime yok!</p>
           <p className="mt-1 text-inksoft">
             Yeni kelimeler ekle ya da hızlı testle desteyi karıştır.
           </p>
           <div className="mt-4 flex justify-center gap-3">
             <LinkButton href="/kelime/ogren" accent="ocean">
-              ✨ Yeni kelimeler
+              Yeni kelimeler
             </LinkButton>
             <LinkButton href="/kelime/quiz" accent="sun">
-              ⚡ Hızlı test
+              Hızlı test
             </LinkButton>
           </div>
         </Card>
@@ -82,7 +80,6 @@ export default function TekrarPage() {
   return (
     <div>
       <PageHeader
-        emoji="🔁"
         title="Kelime Tekrarı"
         desc={`${exercises.length} kelime tekrar bekliyor. Doğru bildiklerin üst kutuya zıplayacak.`}
       />

@@ -6,7 +6,6 @@ import { mixedVocabExercises } from "./vocabQuiz";
 
 export type ExamSection = {
   title: string;
-  emoji: string;
   passage?: string;
   listening?: string;
   exercises: Exercise[];
@@ -32,11 +31,11 @@ function grammarPool(): Exercise[] {
 
 export function buildMiniExam(): ExamSection[] {
   return [
-    { title: "Gramer", emoji: "🧩", exercises: sample(grammarPool(), 6) },
-    { title: "Kelime", emoji: "🃏", exercises: mixedVocabExercises(sample(words, 4), words) },
-    { title: "Sentence Completion", emoji: "✂️", exercises: sample(sentenceCompletion, 4) },
-    { title: "Restatement", emoji: "♻️", exercises: sample(restatement, 3) },
-    { title: "Dialogue Completion", emoji: "💬", exercises: sample(dialogueCompletion, 3) },
+    { title: "Gramer", exercises: sample(grammarPool(), 6) },
+    { title: "Kelime", exercises: mixedVocabExercises(sample(words, 4), words) },
+    { title: "Sentence Completion", exercises: sample(sentenceCompletion, 4) },
+    { title: "Restatement", exercises: sample(restatement, 3) },
+    { title: "Dialogue Completion", exercises: sample(dialogueCompletion, 3) },
   ];
 }
 
@@ -45,20 +44,18 @@ export function buildFullExam(): ExamSection[] {
   const readings = sample(readingPassages, 3);
   const listenings = sample(listeningTracks, 2);
   return [
-    { title: "Cloze Test", emoji: "🕳️", passage: clozeText(cloze), exercises: clozeToExercises(cloze) },
-    { title: "Sentence Completion", emoji: "✂️", exercises: sample(sentenceCompletion, 8) },
-    { title: "Restatement", emoji: "♻️", exercises: sample(restatement, 6) },
-    { title: "Dialogue Completion", emoji: "💬", exercises: sample(dialogueCompletion, 4) },
-    { title: "Vocabulary", emoji: "🃏", exercises: mixedVocabExercises(sample(words, 10), words) },
+    { title: "Cloze Test", passage: clozeText(cloze), exercises: clozeToExercises(cloze) },
+    { title: "Sentence Completion", exercises: sample(sentenceCompletion, 8) },
+    { title: "Restatement", exercises: sample(restatement, 6) },
+    { title: "Dialogue Completion", exercises: sample(dialogueCompletion, 4) },
+    { title: "Vocabulary", exercises: mixedVocabExercises(sample(words, 10), words) },
     ...readings.map((r, i) => ({
       title: `Reading ${i + 1}`,
-      emoji: "📖",
       passage: r.text,
       exercises: r.questions,
     })),
     ...listenings.map((l, i) => ({
       title: `Listening ${i + 1}`,
-      emoji: "🎧",
       listening: l.script,
       exercises: l.questions,
     })),

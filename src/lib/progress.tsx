@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { addDays, dateKey } from "./dates";
+import { addDays, dateKey, daysBetween } from "./dates";
 import { isDue, isLearned, isMastered, newEntry, reviewEntry, type SrsEntry } from "./srs";
 import { levelFromXp } from "./levels";
 import { badges as allBadges, type BadgeSnapshot } from "./badges";
@@ -14,7 +14,16 @@ export const XP = { correct: 10, wrong: 2, newWord: 12, review: 8, examCorrect: 
 export type DayStat = { xp: number; questions: number; correct: number; words: number };
 export type ExamRecord = { day: string; kind: string; score: number; total: number };
 export type GrammarResult = { correct: number; total: number; stars: number };
-export type Settings = { examDate: string; dailyGoal: number; sound: boolean; name: string };
+export type Settings = {
+  examDate: string;
+  examDateSet: boolean;
+  dailyGoal: number;
+  sound: boolean;
+  name: string;
+};
+
+// Sabit varsayılan: kullanıcı tarih kaydetmediyse geri sayım her gün kaymasın.
+export const DEFAULT_EXAM_DATE = "2027-01-07";
 
 export type ProgressState = {
   xp: number;
@@ -58,8 +67,22 @@ function defaultState(): ProgressState {
     questCounts: {},
     questAwarded: [],
     gamesPlayed: 0,
-    settings: { examDate: addDays(dateKey(), 14), dailyGoal: 150, sound: true, name: "" },
+    settings: { examDate: DEFAULT_EXAM_DATE, examDateSet: false, dailyGoal: 150, sound: true, name: "" },
   };
+}
+
+function parseStored(raw: string): ProgressState {
+  const loaded = JSON.parse(raw) as Partial<ProgressState>;
+  const base = defaultState();
+  const settings: Settings = { ...base.settings, ...(loaded.settings ?? {}) };
+  if (!settings.examDateSet) {
+    // Eski sürüm varsayılanı "bugün + 14 gün" idi ve her açılışta kayıyordu.
+    // Kullanıcının seçtiği belli olmayan yakın tarihleri sabit varsayılana çek.
+    const looksLikeOldDefault = daysBetween(dateKey(), settings.examDate) <= 14;
+    if (looksLikeOldDefault) settings.examDate = DEFAULT_EXAM_DATE;
+    else settings.examDateSet = true;
+  }
+  return { ...base, ...loaded, settings };
 }
 
 function rollover(s: ProgressState): ProgressState {
@@ -157,20 +180,29 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
-        const loaded = JSON.parse(raw) as Partial<ProgressState>;
-        const base = defaultState();
-        const merged: ProgressState = {
-          ...base,
-          ...loaded,
-          settings: { ...base.settings, ...(loaded.settings ?? {}) },
-        };
-        const rolled = rollover(merged);
+        const rolled = rollover(parseStored(raw));
         prevLevel.current = levelFromXp(rolled.xp).level;
         prevStreak.current = rolled.streak;
         setState(rolled);
       }
     } catch {}
     setReady(true);
+    // Safari gibi tarayıcıların siteyi kullanılmadığında veriyi silmesini zorlaştırır.
+    navigator.storage?.persist?.().catch(() => {});
+
+    // Başka bir sekmede yapılan değişikliği al; yoksa açık kalan eski sekme
+    // kaydettiğin tarihi (ve ilerlemeyi) kendi eski haliyle ezer.
+    const onStorage = (e: StorageEvent) => {
+      if (e.key !== STORAGE_KEY || !e.newValue) return;
+      try {
+        const next = rollover(parseStored(e.newValue));
+        prevLevel.current = levelFromXp(next.xp).level;
+        prevStreak.current = next.streak;
+        setState(next);
+      } catch {}
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
   useEffect(() => {
@@ -193,12 +225,12 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     if (info.level > prevLevel.current) {
       sfx.levelUp();
       starRain();
-      toast({ emoji: "🎉", title: `Seviye ${info.level}!`, body: `Yeni unvanın: ${info.title}` });
+      toast({ title: `Seviye ${info.level}!`, body: `Yeni unvanın: ${info.title}` });
     }
     prevLevel.current = info.level;
     if (state.streak > prevStreak.current) {
       sfx.win();
-      toast({ emoji: "🔥", title: `${state.streak} günlük seri!`, body: "Günlük hedefini tamamladın, seri devam ediyor." });
+      toast({ title: `${state.streak} günlük seri!`, body: "Günlük hedefini tamamladın, seri devam ediyor." });
     }
     prevStreak.current = state.streak;
   }, [state.xp, state.streak, ready]);
@@ -212,7 +244,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       const first = earned[0];
       burst();
       sfx.win();
-      toast({ emoji: first.emoji, title: `Rozet kazandın: ${first.name}`, body: first.desc });
+      toast({ title: `Rozet kazandın: ${first.name}`, body: first.desc });
     }
   }, [state, ready]);
 
@@ -240,13 +272,13 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       });
       const q = pending[0];
       sfx.win();
-      toast({ emoji: q.emoji, title: "Görev tamamlandı!", body: `${q.label} (+${q.xp} XP)` });
+      toast({ title: "Görev tamamlandı!", body: `${q.label} (+${q.xp} XP)` });
       const willAllDone = quests.every(
         (q2) => state.questAwarded.includes(q2.id) || pending.some((p) => p.id === q2.id)
       );
       if (willAllDone) {
         bigCelebration();
-        toast({ emoji: "👑", title: "Günün tüm görevleri bitti!", body: `Bonus +${allQuestsBonusXp} XP kazandın.` });
+        toast({ title: "Günün tüm görevleri bitti!", body: `Bonus +${allQuestsBonusXp} XP kazandın.` });
       }
     }
   }, [state, ready]);

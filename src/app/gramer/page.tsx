@@ -16,7 +16,6 @@ export default function GramerHub() {
   return (
     <div className="flex flex-col gap-5">
       <PageHeader
-        emoji="🧩"
         title="Gramer Haritası"
         desc="Her konuda önce hap bilgi, sonra 14 soruluk görev. Yüzde 50 üstü 1, yüzde 70 üstü 2, yüzde 90 üstü 3 yıldız!"
       />
@@ -25,12 +24,12 @@ export default function GramerHub() {
           <span className="font-display font-extrabold">
             {completed} / {grammarTopics.length} konu tamamlandı
           </span>
-          <Chip className="bg-sunsoft text-sundark">⭐ {totalStars} / {grammarTopics.length * 3}</Chip>
+          <Chip className="bg-sunsoft text-sundark">{totalStars} / {grammarTopics.length * 3}</Chip>
         </div>
         <ProgressBar value={completed} max={grammarTopics.length} accent="ocean" />
       </Card>
       <div className="grid gap-3 sm:grid-cols-2">
-        {grammarTopics.map((t) => {
+        {grammarTopics.map((t, i) => {
           const res = state.grammar[t.id];
           return (
             <Link
@@ -39,8 +38,8 @@ export default function GramerHub() {
               className="rounded-3xl border-2 border-line bg-card p-4 transition-all hover:-translate-y-1 hover:border-grape/40"
             >
               <div className="flex items-start justify-between gap-2">
-                <span className="grid size-12 place-items-center rounded-2xl bg-oceansoft text-2xl">
-                  {t.emoji}
+                <span className="grid size-12 place-items-center rounded-2xl bg-oceansoft font-display text-lg font-extrabold text-ocean">
+                  {i + 1}
                 </span>
                 <Stars count={res?.stars ?? 0} size="text-base" />
               </div>

@@ -8,35 +8,30 @@ import { Card, Chip, PageHeader } from "@/components/ui";
 const modes = [
   {
     href: "/cloze",
-    emoji: "🕳️",
     title: "Cloze Test",
     desc: "Metindeki 6 boşluğu doldur, sınavın açılış bölümü",
     bg: "bg-rose2soft",
   },
   {
     href: "/uoe/cumle",
-    emoji: "✂️",
     title: "Sentence Completion",
     desc: "Yarım cümleyi mantık + gramerle tamamla",
     bg: "bg-grapesoft",
   },
   {
     href: "/uoe/yakin",
-    emoji: "♻️",
     title: "Restatement",
     desc: "Anlamca en yakın cümleyi yakala",
     bg: "bg-mintsoft",
   },
   {
     href: "/uoe/diyalog",
-    emoji: "💬",
     title: "Dialogue Completion",
     desc: "Diyalogdaki eksik konuşmayı bul",
     bg: "bg-sunsoft",
   },
   {
     href: "/uoe/karisik",
-    emoji: "🌪️",
     title: "Karışık Tur",
     desc: "Üç soru tipi karışık, 12 soru, sınav provası",
     bg: "bg-oceansoft",
@@ -49,13 +44,12 @@ export default function UoeHub() {
   return (
     <div>
       <PageHeader
-        emoji="🧰"
         title="Use of English"
         desc="MÜYYES'in ilk bölümünün soru tipleri: cloze, cümle tamamlama, yakın anlam, diyalog ve kelime."
       />
       <Card className="mb-4 bg-sunsoft/60">
         <p className="text-sm font-bold">
-          💡 Gerçek sınavda bu bölüm cloze test + sentence completion + restatement + dialogue
+          Gerçek sınavda bu bölüm cloze test + sentence completion + restatement + dialogue
           completion + vocabulary sorularından oluşur. Hepsi çoktan seçmelidir.
         </p>
       </Card>
@@ -67,9 +61,7 @@ export default function UoeHub() {
             className="rounded-3xl border-2 border-line bg-card p-4 transition-all hover:-translate-y-1 hover:border-grape/40"
           >
             <div className="flex items-center justify-between">
-              <span className={`grid size-12 place-items-center rounded-2xl text-2xl ${m.bg}`}>
-                {m.emoji}
-              </span>
+              <span className={`block h-2 w-12 rounded-full ${m.bg}`} />
               {m.href === "/cloze" ? (
                 <Chip className="bg-paper text-inksoft">
                   {clozeDone}/{clozePassages.length} bitti

@@ -19,7 +19,6 @@ export default function GramerKonu() {
   if (!topic) {
     return (
       <Card className="text-center">
-        <p className="text-5xl">🤔</p>
         <p className="mt-2 font-display text-xl font-extrabold">Konu bulunamadı</p>
         <LinkButton href="/gramer" accent="grape" className="mt-4">
           Gramer haritasına dön
@@ -32,7 +31,7 @@ export default function GramerKonu() {
 
   return (
     <div>
-      <PageHeader emoji={topic.emoji} title={topic.title} desc={topic.summary} />
+      <PageHeader title={topic.title} desc={topic.summary} />
       <div className="mb-5 flex items-center gap-2">
         <button
           onClick={() => setTab("konu")}
@@ -40,7 +39,7 @@ export default function GramerKonu() {
             tab === "konu" ? "bg-grape text-white" : "border-2 border-line bg-card text-inksoft"
           }`}
         >
-          📖 Konu
+          Konu
         </button>
         <button
           onClick={() => {
@@ -52,7 +51,7 @@ export default function GramerKonu() {
             tab === "quiz" ? "bg-grape text-white" : "border-2 border-line bg-card text-inksoft"
           }`}
         >
-          🎯 Görev (14 soru)
+          Görev (14 soru)
         </button>
         <span className="ml-auto">
           <Stars count={stars} />
@@ -76,11 +75,11 @@ export default function GramerKonu() {
             </Card>
           ))}
           <Card className="border-sun bg-sunsoft/60">
-            <h2 className="mb-2 text-lg font-extrabold">🎯 Sınav taktikleri</h2>
+            <h2 className="mb-2 text-lg font-extrabold">Sınav taktikleri</h2>
             <ul className="flex flex-col gap-2">
               {topic.tips.map((tip, i) => (
                 <li key={i} className="flex gap-2 text-[15px] font-bold">
-                  <span>💡</span>
+                  <span className="shrink-0">•</span>
                   {tip}
                 </li>
               ))}
@@ -91,7 +90,7 @@ export default function GramerKonu() {
               onClick={() => setTab("quiz")}
               className="cursor-pointer rounded-2xl bg-grape px-8 py-4 font-display text-lg font-bold text-white shadow-[0_4px_0_var(--color-grapedark)] transition-all hover:brightness-105 active:translate-y-[3px] active:shadow-none"
             >
-              Hazırım, göreve başla! 🎯
+              Hazırım, göreve başla!
             </button>
           </div>
         </div>

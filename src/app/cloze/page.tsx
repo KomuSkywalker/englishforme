@@ -10,7 +10,6 @@ export default function ClozeHub() {
   return (
     <div>
       <PageHeader
-        emoji="🕳️"
         title="Boşluk Doldurma"
         desc="MÜYYES'in Use of English bölümünün provası: metindeki 6 boşluğu doğru parçalarla doldur."
       />
@@ -25,7 +24,7 @@ export default function ClozeHub() {
             >
               <div className="flex items-center justify-between">
                 <Chip className="bg-rose2soft text-rose2dark">Test {i + 1}</Chip>
-                {score !== undefined ? <Chip className="bg-grapesoft text-grape">%{score} ✅</Chip> : null}
+                {score !== undefined ? <Chip className="bg-grapesoft text-grape">%{score}</Chip> : null}
               </div>
               <p className="mt-2 font-display text-lg font-extrabold leading-tight">{p.title}</p>
               <Chip className="mt-2 bg-paper text-inksoft">6 boşluk</Chip>

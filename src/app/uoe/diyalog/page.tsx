@@ -8,7 +8,6 @@ export default function DiyalogPage() {
     <BankQuiz
       bank={dialogueCompletion}
       count={10}
-      emoji="💬"
       title="Dialogue Completion"
       desc="Diyalogdaki boş konuşmayı akışa göre doldur. Önceki ve sonraki cümle ipucudur."
       backHref="/uoe"

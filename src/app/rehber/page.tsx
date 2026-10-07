@@ -5,7 +5,6 @@ import { Card, Chip, PageHeader } from "@/components/ui";
 
 const sections = [
   {
-    emoji: "🧰",
     title: "Use of English",
     color: "bg-grapesoft",
     items: [
@@ -21,7 +20,6 @@ const sections = [
     ],
   },
   {
-    emoji: "📖",
     title: "Reading",
     color: "bg-mintsoft",
     items: [
@@ -33,7 +31,6 @@ const sections = [
     train: [{ href: "/okuma", label: "Okuma rafı" }],
   },
   {
-    emoji: "🎧",
     title: "Listening",
     color: "bg-sunsoft",
     items: [
@@ -45,7 +42,6 @@ const sections = [
     train: [{ href: "/dinleme", label: "Dinleme stüdyosu" }],
   },
   {
-    emoji: "✍️",
     title: "Writing",
     color: "bg-oceansoft",
     items: [
@@ -73,13 +69,12 @@ export default function RehberPage() {
   return (
     <div className="flex flex-col gap-5">
       <PageHeader
-        emoji="🧭"
         title="MÜYYES Rehberi"
         desc="Sınavın resmi örnek sorularından ve duyurularından derlenen her şey: format, kurallar, taktikler."
       />
 
       <Card>
-        <h2 className="mb-3 text-lg font-extrabold">📋 Sınav künyesi</h2>
+        <h2 className="mb-3 text-lg font-extrabold">Sınav künyesi</h2>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           <div className="rounded-2xl bg-paper p-3 text-center">
             <p className="font-display text-xl font-extrabold text-grape">4 bölüm</p>
@@ -100,11 +95,11 @@ export default function RehberPage() {
         </div>
       </Card>
 
-      {sections.map((s) => (
+      {sections.map((s, si) => (
         <Card key={s.title}>
           <div className="mb-3 flex items-center gap-3">
-            <span className={`grid size-11 place-items-center rounded-2xl text-2xl ${s.color}`}>
-              {s.emoji}
+            <span className={`grid size-11 place-items-center rounded-2xl font-display text-lg font-extrabold ${s.color}`}>
+              {si + 1}
             </span>
             <h2 className="text-xl font-extrabold">{s.title}</h2>
           </div>
@@ -131,11 +126,11 @@ export default function RehberPage() {
       ))}
 
       <Card className="border-sun bg-sunsoft/50">
-        <h2 className="mb-3 text-lg font-extrabold">📜 Sınav günü kuralları</h2>
+        <h2 className="mb-3 text-lg font-extrabold">Sınav günü kuralları</h2>
         <ul className="flex flex-col gap-2">
           {rules.map((r, i) => (
             <li key={i} className="flex gap-2 text-[15px] font-bold">
-              <span>⚠️</span>
+              <span className="shrink-0">•</span>
               {r}
             </li>
           ))}
@@ -143,7 +138,7 @@ export default function RehberPage() {
       </Card>
 
       <Card>
-        <h2 className="mb-3 text-lg font-extrabold">🔗 Resmi kaynaklar</h2>
+        <h2 className="mb-3 text-lg font-extrabold">Resmi kaynaklar</h2>
         <div className="flex flex-col gap-2">
           <a
             href="http://dosya.marmara.edu.tr/ydyo/100_sample_exam.pdf"
@@ -151,7 +146,7 @@ export default function RehberPage() {
             rel="noreferrer"
             className="rounded-2xl bg-paper px-4 py-3 font-bold transition-colors hover:bg-grapesoft"
           >
-            📄 Resmi örnek sınav PDF (Reading + Listening)
+            Resmi örnek sınav PDF (Reading + Listening)
           </a>
           <a
             href="http://dosya.marmara.edu.tr/ydyo/100_sample_exam_key.pdf"
@@ -159,7 +154,7 @@ export default function RehberPage() {
             rel="noreferrer"
             className="rounded-2xl bg-paper px-4 py-3 font-bold transition-colors hover:bg-grapesoft"
           >
-            🔑 Örnek sınav cevap anahtarı
+            Örnek sınav cevap anahtarı
           </a>
           <a
             href="https://soundcloud.com/user-651353194/proficiency100"
@@ -167,7 +162,7 @@ export default function RehberPage() {
             rel="noreferrer"
             className="rounded-2xl bg-paper px-4 py-3 font-bold transition-colors hover:bg-grapesoft"
           >
-            🎵 Örnek sınavın dinleme kaydı (SoundCloud)
+            Örnek sınavın dinleme kaydı (SoundCloud)
           </a>
           <a
             href="https://ydil.marmara.edu.tr"
@@ -175,7 +170,7 @@ export default function RehberPage() {
             rel="noreferrer"
             className="rounded-2xl bg-paper px-4 py-3 font-bold transition-colors hover:bg-grapesoft"
           >
-            🏛️ Yabancı Diller Yüksekokulu duyuruları (tarihler burada açıklanır)
+            Yabancı Diller Yüksekokulu duyuruları (tarihler burada açıklanır)
           </a>
         </div>
         <p className="mt-3 text-xs font-bold text-inksoft">
@@ -185,8 +180,7 @@ export default function RehberPage() {
       </Card>
 
       <Card className="text-center">
-        <p className="text-4xl">🦜</p>
-        <p className="mt-2 font-display text-lg font-extrabold">
+        <p className="font-display text-lg font-extrabold">
           Formatı bilen öğrenci, sınavın yarısını çözmüş demektir.
         </p>
         <p className="mt-1 text-sm font-bold text-inksoft">

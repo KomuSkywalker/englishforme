@@ -27,7 +27,6 @@ export type GrammarTopic = {
   id: string;
   title: string;
   titleTr: string;
-  emoji: string;
   level: 1 | 2 | 3;
   summary: string;
   sections: GrammarSection[];

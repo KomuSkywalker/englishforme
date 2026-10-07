@@ -6,18 +6,18 @@ import { useProgress } from "@/lib/progress";
 import { ProgressBar } from "./ui";
 
 const items = [
-  { href: "/", label: "Panel", emoji: "🏠" },
-  { href: "/kelime", label: "Kelime", emoji: "🃏" },
-  { href: "/gramer", label: "Gramer", emoji: "🧩" },
-  { href: "/uoe", label: "Use of English", emoji: "🧰" },
-  { href: "/okuma", label: "Okuma", emoji: "📖" },
-  { href: "/dinleme", label: "Dinleme", emoji: "🎧" },
-  { href: "/oyunlar", label: "Oyunlar", emoji: "🎮" },
-  { href: "/deneme", label: "Deneme Sınavı", emoji: "🎯" },
-  { href: "/yazma", label: "Yazma", emoji: "✍️" },
-  { href: "/rehber", label: "Sınav Rehberi", emoji: "🧭" },
-  { href: "/istatistik", label: "İstatistik", emoji: "📊" },
-  { href: "/ayarlar", label: "Ayarlar", emoji: "⚙️" },
+  { href: "/", label: "Panel" },
+  { href: "/kelime", label: "Kelime" },
+  { href: "/gramer", label: "Gramer" },
+  { href: "/uoe", label: "Use of English" },
+  { href: "/okuma", label: "Okuma" },
+  { href: "/dinleme", label: "Dinleme" },
+  { href: "/oyunlar", label: "Oyunlar" },
+  { href: "/deneme", label: "Deneme Sınavı" },
+  { href: "/yazma", label: "Yazma" },
+  { href: "/rehber", label: "Sınav Rehberi" },
+  { href: "/istatistik", label: "İstatistik" },
+  { href: "/ayarlar", label: "Ayarlar" },
 ];
 
 const mobileItems = items.filter((i) =>
@@ -30,7 +30,7 @@ export function Sidebar() {
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r-2 border-line bg-card p-4 lg:flex">
       <Link href="/" className="mb-6 flex items-center gap-2 px-2">
-        <span className="text-3xl">🦜</span>
+        <span className="grid size-9 place-items-center rounded-xl bg-grape font-display text-lg font-extrabold text-white">E</span>
         <span className="font-display text-xl font-extrabold">
           English<span className="text-grape">ForMe</span>
         </span>
@@ -47,7 +47,6 @@ export function Sidebar() {
                 active ? "bg-grapesoft text-grape" : "text-inksoft hover:bg-paper"
               }`}
             >
-              <span className="text-xl">{item.emoji}</span>
               {item.label}
             </Link>
           );
@@ -58,11 +57,11 @@ export function Sidebar() {
           <span className="font-display text-sm font-bold">
             Sv. {levelInfo.level} · {levelInfo.title}
           </span>
-          <span className="text-sm font-bold text-inksoft">🔥 {state.streak}</span>
+          <span className="text-sm font-bold text-inksoft">Seri {state.streak}</span>
         </div>
         <ProgressBar value={levelInfo.into} max={levelInfo.need} accent="grape" />
         <p className="mt-2 text-xs font-bold text-inksoft">
-          Bugün ⚡ {todayXp} / {state.settings.dailyGoal} XP
+          Bugün {todayXp} / {state.settings.dailyGoal} XP
         </p>
       </div>
     </aside>
@@ -74,14 +73,14 @@ export function MobileTopBar() {
   return (
     <header className="sticky top-0 z-40 flex items-center justify-between border-b-2 border-line bg-card px-4 py-2.5 lg:hidden">
       <Link href="/" className="flex items-center gap-1.5">
-        <span className="text-2xl">🦜</span>
+        <span className="grid size-7 place-items-center rounded-lg bg-grape font-display text-sm font-extrabold text-white">E</span>
         <span className="font-display font-extrabold">
           English<span className="text-grape">ForMe</span>
         </span>
       </Link>
       <div className="flex items-center gap-2 text-sm font-bold">
-        <span className="rounded-full bg-berrysoft px-2.5 py-1">🔥 {state.streak}</span>
-        <span className="rounded-full bg-sunsoft px-2.5 py-1">⚡ {todayXp}</span>
+        <span className="rounded-full bg-berrysoft px-2.5 py-1">Seri {state.streak}</span>
+        <span className="rounded-full bg-sunsoft px-2.5 py-1">{todayXp} XP</span>
         <span className="rounded-full bg-grapesoft px-2.5 py-1">Sv. {levelInfo.level}</span>
       </div>
     </header>
@@ -99,11 +98,11 @@ export function MobileTabBar() {
           <Link
             key={item.href}
             href={item.href}
-            className={`flex flex-col items-center gap-0.5 rounded-xl px-3 py-2 text-[11px] font-bold ${
+            className={`flex flex-col items-center gap-1 rounded-xl px-3 pb-2.5 pt-1.5 text-[13px] font-bold ${
               active ? "text-grape" : "text-inksoft"
             }`}
           >
-            <span className={`text-2xl ${active ? "anim-pop" : ""}`}>{item.emoji}</span>
+            <span className={`h-1 w-6 rounded-full ${active ? "bg-grape" : "bg-transparent"}`} />
             {item.label.split(" ")[0]}
           </Link>
         );

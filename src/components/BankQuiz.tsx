@@ -11,7 +11,6 @@ import { Result } from "@/components/Result";
 export function BankQuiz({
   bank,
   count,
-  emoji,
   title,
   desc,
   backHref,
@@ -19,7 +18,6 @@ export function BankQuiz({
 }: {
   bank: Exercise[];
   count: number;
-  emoji: string;
   title: string;
   desc: string;
   backHref: string;
@@ -33,7 +31,7 @@ export function BankQuiz({
   if (result) {
     return (
       <div>
-        <PageHeader emoji={emoji} title={title} />
+        <PageHeader title={title} />
         <Result
           correct={result.correct}
           total={result.total}
@@ -51,7 +49,7 @@ export function BankQuiz({
 
   return (
     <div>
-      <PageHeader emoji={emoji} title={title} desc={desc} />
+      <PageHeader title={title} desc={desc} />
       <QuizEngine
         key={round}
         exercises={exercises}

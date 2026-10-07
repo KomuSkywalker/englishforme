@@ -8,7 +8,6 @@ export default function CumlePage() {
     <BankQuiz
       bank={sentenceCompletion}
       count={10}
-      emoji="✂️"
       title="Sentence Completion"
       desc="Yarım cümleyi hem gramer hem mantık olarak tamamlayan seçeneği bul. Bağlaca dikkat!"
       backHref="/uoe"

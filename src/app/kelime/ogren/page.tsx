@@ -45,9 +45,8 @@ export default function OgrenPage() {
   if (!ready) {
     return (
       <div>
-        <PageHeader emoji="✨" title="Yeni Kelimeler" />
+        <PageHeader title="Yeni Kelimeler" />
         <Card className="text-center">
-          <p className="anim-float text-5xl">🦜</p>
           <p className="mt-2 font-bold text-inksoft">Deste hazırlanıyor...</p>
         </Card>
       </div>
@@ -57,13 +56,12 @@ export default function OgrenPage() {
   if (batch.length === 0) {
     return (
       <div>
-        <PageHeader emoji="✨" title="Yeni Kelimeler" />
+        <PageHeader title="Yeni Kelimeler" />
         <Card className="text-center">
-          <p className="text-5xl">🏅</p>
           <p className="mt-2 font-display text-xl font-extrabold">Destede yeni kelime kalmadı!</p>
           <p className="mt-1 text-inksoft">Hepsini eklemişsin. Şimdi iş tekrarda.</p>
           <LinkButton href="/kelime/tekrar" accent="grape" className="mt-4">
-            🔁 Tekrara geç
+            Tekrara geç
           </LinkButton>
         </Card>
       </div>
@@ -73,7 +71,7 @@ export default function OgrenPage() {
   if (phase === "done" && result) {
     return (
       <div>
-        <PageHeader emoji="✨" title="Yeni Kelimeler" />
+        <PageHeader title="Yeni Kelimeler" />
         <Result
           correct={result.correct}
           total={result.total}
@@ -89,7 +87,7 @@ export default function OgrenPage() {
   if (phase === "quiz") {
     return (
       <div>
-        <PageHeader emoji="🧪" title="Mini Test" desc="Az önce gördüğün 10 kelimeyi hemen sınayalım." />
+        <PageHeader title="Mini Test" desc="Az önce gördüğün 10 kelimeyi hemen sınayalım." />
         <QuizEngine
           exercises={quiz}
           record={(ex, correct) => reviewWord(ex.id, correct)}
@@ -106,7 +104,7 @@ export default function OgrenPage() {
 
   return (
     <div>
-      <PageHeader emoji="✨" title="Yeni Kelimeler" desc="Karta dokun, çevir, tanış. Sonra mini test var!" />
+      <PageHeader title="Yeni Kelimeler" desc="Karta dokun, çevir, tanış. Sonra mini test var!" />
       <div className="mb-4">
         <ProgressBar value={index} max={batch.length} accent="ocean" />
       </div>
@@ -145,7 +143,7 @@ export default function OgrenPage() {
                 {posLabels[word.pos]} · seviye {word.level}
               </span>
               <p className="mt-4 font-display text-4xl font-extrabold sm:text-5xl">{word.en}</p>
-              <p className="mt-6 text-sm font-bold text-inksoft">Dokun ve anlamını gör 👆</p>
+              <p className="mt-6 text-sm font-bold text-inksoft">Dokun ve anlamını gör</p>
             </div>
           )}
         </motion.button>
@@ -166,7 +164,7 @@ export default function OgrenPage() {
           </Button>
         ) : (
           <Button accent="ocean" onClick={() => setFlipped(true)}>
-            Kartı çevir 🔄
+            Kartı çevir
           </Button>
         )}
       </div>

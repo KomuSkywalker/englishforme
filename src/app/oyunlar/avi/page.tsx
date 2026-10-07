@@ -13,7 +13,6 @@ import type { Word } from "@/data/types";
 const ROUNDS = 5;
 const MAX_WRONG = 6;
 const keyboard = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
-const moods = ["🦜", "🦜", "😬", "😰", "😱", "🥵", "💀"];
 
 function pickWords(): Word[] {
   const pool = words.filter(
@@ -101,18 +100,17 @@ export default function KelimeAviPage() {
   if (finished) {
     return (
       <div>
-        <PageHeader emoji="🎣" title="Kelime Avı" />
+        <PageHeader title="Kelime Avı" />
         <Card className="text-center">
-          <p className="text-6xl anim-pop">{score >= 4 ? "🏆" : score >= 3 ? "🌟" : "🪶"}</p>
-          <h2 className="mt-2 text-3xl font-extrabold">
+          <h2 className="text-3xl font-extrabold">
             {score} / {ROUNDS} kelime avlandı
           </h2>
           <p className="mt-3 inline-block rounded-full bg-sunsoft px-4 py-1.5 font-bold text-sundark">
-            ⚡ Av bonusu: +{score * 5} XP
+            Av bonusu: +{score * 5} XP
           </p>
           <div className="mt-5 flex justify-center gap-3">
             <Button accent="ocean" onClick={restart}>
-              🔄 Yeni av
+              Yeni av
             </Button>
             <LinkButton href="/oyunlar" accent="ghost">
               Oyun salonuna dön
@@ -125,20 +123,30 @@ export default function KelimeAviPage() {
 
   return (
     <div>
-      <PageHeader emoji="🎣" title="Kelime Avı" desc="Harf harf tahmin et, 6 yanlışta papağan bayılıyor!" />
+      <PageHeader title="Kelime Avı" desc="Harf harf tahmin et, 6 yanlış hakkın var." />
       <div className="mb-4 flex items-center gap-3 font-display font-extrabold">
         <span className="rounded-full bg-grapesoft px-4 py-1.5 text-grape">
           {roundIndex + 1} / {ROUNDS}
         </span>
-        <span className="rounded-full bg-mintsoft px-4 py-1.5 text-mintdark">✅ {score}</span>
+        <span className="rounded-full bg-mintsoft px-4 py-1.5 text-mintdark">Avlanan {score}</span>
         <span className="ml-auto rounded-full bg-berrysoft px-4 py-1.5 text-berrydark">
-          ❤️ {MAX_WRONG - wrongCount}
+          Kalan hak {MAX_WRONG - wrongCount}
         </span>
       </div>
       <Card className="text-center">
-        <motion.p key={wrongCount + roundState} initial={{ scale: 1.4 }} animate={{ scale: 1 }} className="text-6xl">
-          {roundState === "won" ? "🥳" : moods[wrongCount]}
-        </motion.p>
+        <motion.div
+          key={wrongCount + roundState}
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          className="mx-auto flex max-w-xs gap-1.5"
+        >
+          {Array.from({ length: MAX_WRONG }, (_, i) => (
+            <span
+              key={i}
+              className={`h-2.5 flex-1 rounded-full ${i < MAX_WRONG - wrongCount ? "bg-mint" : "bg-berrysoft"}`}
+            />
+          ))}
+        </motion.div>
         <p className="mt-3 rounded-2xl bg-paper px-3 py-2 text-sm font-bold text-inksoft">
           İpucu: {word.tr} ({posLabels[word.pos]})
         </p>

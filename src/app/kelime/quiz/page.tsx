@@ -26,7 +26,7 @@ export default function KelimeQuizPage() {
   if (result) {
     return (
       <div>
-        <PageHeader emoji="⚡" title="Hızlı Test" />
+        <PageHeader title="Hızlı Test" />
         <Result
           correct={result.correct}
           total={result.total}
@@ -46,7 +46,6 @@ export default function KelimeQuizPage() {
   return (
     <div>
       <PageHeader
-        emoji="⚡"
         title="Hızlı Test"
         desc="12 soruluk karışık kelime testi: anlam, çeviri ve eş anlamlılar."
       />

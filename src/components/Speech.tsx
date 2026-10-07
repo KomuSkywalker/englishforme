@@ -28,10 +28,13 @@ export function SpeakButton({ text, className = "" }: { text: string; className?
         e.stopPropagation();
         speak(text);
       }}
-      className={`cursor-pointer rounded-full bg-oceansoft px-3 py-1.5 text-lg transition-transform active:scale-90 ${className}`}
+      className={`inline-flex cursor-pointer items-center rounded-full bg-oceansoft px-3 py-1.5 text-ocean transition-transform active:scale-90 ${className}`}
       aria-label="Sesli dinle"
     >
-      🔊
+      <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <path d="M11 5 6 9H2v6h4l5 4V5z" />
+        <path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14" />
+      </svg>
     </button>
   );
 }
@@ -92,17 +95,14 @@ export function TtsPlayer({
 
   return (
     <div className="flex items-center gap-3 rounded-3xl border-2 border-line bg-card p-4">
-      <span className={`text-4xl ${status === "playing" ? "anim-float" : ""}`}>
-        {status === "playing" ? "🎙️" : "🎧"}
-      </span>
       <div className="flex flex-1 flex-wrap items-center gap-2">
         {status === "playing" ? (
           <Button accent="berry" onClick={stop} className="!py-2">
-            ⏹ Durdur
+            Durdur
           </Button>
         ) : (
           <Button accent="ocean" onClick={play} className="!py-2" disabled={playsLeft <= 0}>
-            {status === "done" ? "🔁 Tekrar dinle" : "▶️ Dinlemeye başla"}
+            {status === "done" ? "Tekrar dinle" : "Dinlemeye başla"}
           </Button>
         )}
         <p className="text-sm font-bold text-inksoft">

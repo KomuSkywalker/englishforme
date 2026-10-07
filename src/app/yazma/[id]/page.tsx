@@ -71,7 +71,6 @@ export default function YazmaDetay() {
   if (!prompt) {
     return (
       <Card className="text-center">
-        <p className="text-5xl">📝</p>
         <p className="mt-2 font-display text-xl font-extrabold">Konu bulunamadı</p>
         <LinkButton href="/yazma" accent="grape" className="mt-4">
           Atölyeye dön
@@ -94,12 +93,12 @@ export default function YazmaDetay() {
     addXp(40);
     burst();
     sfx.win();
-    toast({ emoji: "✍️", title: "Essay tamamlandı!", body: "+40 XP. Kendini bir hocaya da okutursan süper olur." });
+    toast({ title: "Essay tamamlandı!", body: "+40 XP. Kendini bir hocaya da okutursan süper olur." });
   }
 
   return (
     <div>
-      <PageHeader emoji="✍️" title={prompt.typeTr + " Essay"} />
+      <PageHeader title={prompt.typeTr + " Essay"} />
       <div className="flex flex-col gap-4">
         <Card className="border-grape bg-grapesoft/40">
           <p className="font-display text-lg font-extrabold leading-snug">{prompt.prompt}</p>
@@ -107,7 +106,7 @@ export default function YazmaDetay() {
 
         <div className="grid gap-4 lg:grid-cols-2">
           <Card>
-            <h2 className="mb-2 font-display text-lg font-extrabold">🗺️ Plan (böyle kur)</h2>
+            <h2 className="mb-2 font-display text-lg font-extrabold">Plan (böyle kur)</h2>
             <ol className="flex flex-col gap-2">
               {prompt.plan.map((step, i) => (
                 <li key={i} className="flex gap-2 text-sm font-bold">
@@ -120,7 +119,7 @@ export default function YazmaDetay() {
             </ol>
           </Card>
           <Card>
-            <h2 className="mb-2 font-display text-lg font-extrabold">🧰 Hazır kalıplar</h2>
+            <h2 className="mb-2 font-display text-lg font-extrabold">Hazır kalıplar</h2>
             <p className="mb-2 text-xs font-bold text-inksoft">Dokununca panoya kopyalanır.</p>
             <div className="flex flex-wrap gap-1.5">
               {prompt.phrases.map((ph) => (
@@ -129,7 +128,7 @@ export default function YazmaDetay() {
                   onClick={() => {
                     navigator.clipboard?.writeText(ph);
                     sfx.click();
-                    toast({ emoji: "📋", title: "Kopyalandı", body: ph });
+                    toast({ title: "Kopyalandı", body: ph });
                   }}
                   className="cursor-pointer rounded-full bg-paper px-3 py-1.5 text-sm font-bold transition-colors hover:bg-sunsoft"
                 >
@@ -142,18 +141,18 @@ export default function YazmaDetay() {
 
         <Card>
           <div className="mb-3 flex flex-wrap items-center gap-2">
-            <h2 className="font-display text-lg font-extrabold">📝 Taslağın</h2>
+            <h2 className="font-display text-lg font-extrabold">Taslağın</h2>
             <Chip className={countCls}>{wordCount} kelime / hedef 250</Chip>
             {timeLeft === null ? (
               <button
                 onClick={() => setTimeLeft(40 * 60)}
                 className="cursor-pointer rounded-full bg-berrysoft px-3 py-1 text-sm font-bold text-berrydark"
               >
-                ⏱️ 40 dk sınav modu
+                40 dk sınav modu
               </button>
             ) : (
               <Chip className={timeLeft <= 300 ? "bg-berrysoft text-berrydark" : "bg-sunsoft text-sundark"}>
-                ⏱️ {Math.floor(Math.max(0, timeLeft) / 60)}:{String(Math.max(0, timeLeft) % 60).padStart(2, "0")}
+                {Math.floor(Math.max(0, timeLeft) / 60)}:{String(Math.max(0, timeLeft) % 60).padStart(2, "0")}
               </Chip>
             )}
           </div>
@@ -168,7 +167,7 @@ export default function YazmaDetay() {
             <span className="text-sm font-bold text-inksoft">Bağlaç radarı:</span>
             {foundLinkers.length === 0 ? (
               <span className="text-sm font-bold text-inksoft/60">
-                henüz linker yok, however/therefore/although dene 😉
+                henüz linker yok, however/therefore/although dene
               </span>
             ) : (
               foundLinkers.map((l) => (
@@ -187,10 +186,10 @@ export default function YazmaDetay() {
                   : "Süper, sınav bandındasın!"}
             </p>
             {done ? (
-              <Chip className="bg-mintsoft text-mintdark">Tamamlandı ✅</Chip>
+              <Chip className="bg-mintsoft text-mintdark">Tamamlandı</Chip>
             ) : (
               <Button accent="mint" disabled={wordCount < 180} onClick={complete}>
-                Tamamladım ✅
+                Tamamladım
               </Button>
             )}
           </div>

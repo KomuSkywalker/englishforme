@@ -91,14 +91,13 @@ export default function HizTuruPage() {
   if (phase === "idle") {
     return (
       <div>
-        <PageHeader emoji="⏱️" title="Hız Turu" desc="60 saniye, sınırsız soru. Ne kadar hızlısın?" />
+        <PageHeader title="Hız Turu" desc="60 saniye, sınırsız soru. Ne kadar hızlısın?" />
         <Card className="text-center">
-          <p className="text-6xl anim-float">🏎️</p>
           <p className="mx-auto mt-3 max-w-sm font-bold text-inksoft">
             Doğru cevap 6 XP, üst üste 5 doğru combo sesi getirir. Süre bitince combo bonusu da eklenir!
           </p>
           <Button accent="sun" className="mt-5 text-lg" onClick={start}>
-            🚦 Başlat!
+            Başlat!
           </Button>
         </Card>
       </div>
@@ -108,19 +107,18 @@ export default function HizTuruPage() {
   if (phase === "done") {
     return (
       <div>
-        <PageHeader emoji="⏱️" title="Hız Turu" />
+        <PageHeader title="Hız Turu" />
         <Card className="text-center">
-          <p className="text-6xl anim-pop">{correct >= 20 ? "🏆" : correct >= 10 ? "🌟" : "💪"}</p>
-          <h2 className="mt-2 text-3xl font-extrabold">{correct} doğru</h2>
+          <h2 className="text-3xl font-extrabold">{correct} doğru</h2>
           <p className="mt-1 text-inksoft">
             {total} soruda {correct} doğru, en iyi combo x{bestCombo}
           </p>
           <p className="mt-3 inline-block rounded-full bg-sunsoft px-4 py-1.5 font-bold text-sundark">
-            ⚡ Tur bonusu: +{correct * 5 + bestCombo * 3} XP
+            Tur bonusu: +{correct * 5 + bestCombo * 3} XP
           </p>
           <div className="mt-5 flex justify-center gap-3">
             <Button accent="sun" onClick={start}>
-              🔄 Bir tur daha
+              Bir tur daha
             </Button>
             <LinkButton href="/oyunlar" accent="ghost">
               Oyun salonuna dön
@@ -139,9 +137,9 @@ export default function HizTuruPage() {
             timeLeft <= 10 ? "bg-berrysoft text-berrydark anim-shake" : "bg-sunsoft text-sundark"
           }`}
         >
-          ⏱️ {timeLeft}s
+          Süre {timeLeft}s
         </span>
-        <span className="rounded-full bg-mintsoft px-4 py-1.5 text-mintdark">✅ {correct}</span>
+        <span className="rounded-full bg-mintsoft px-4 py-1.5 text-mintdark">Doğru {correct}</span>
         {combo >= 2 ? (
           <motion.span
             key={combo}
@@ -149,7 +147,7 @@ export default function HizTuruPage() {
             animate={{ scale: 1 }}
             className="rounded-full bg-grapesoft px-4 py-1.5 text-grape"
           >
-            🔥 x{combo}
+            Seri x{combo}
           </motion.span>
         ) : null}
       </div>

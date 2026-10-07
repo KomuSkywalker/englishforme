@@ -27,7 +27,7 @@ export default function IstatistikPage() {
 
   return (
     <div className="flex flex-col gap-5">
-      <PageHeader emoji="📊" title="İstatistik Panosu" desc="Emeklerinin fotoğrafı. Grafik yükseldikçe sınav küçülür." />
+      <PageHeader title="İstatistik Panosu" desc="Emeklerinin fotoğrafı. Grafik yükseldikçe sınav küçülür." />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Card className="!p-4 text-center">
@@ -49,7 +49,7 @@ export default function IstatistikPage() {
       </div>
 
       <Card>
-        <h2 className="mb-3 text-lg font-extrabold">⚡ Son 14 gün XP</h2>
+        <h2 className="mb-3 text-lg font-extrabold">Son 14 gün XP</h2>
         <div className="flex h-32 items-end justify-between gap-1">
           {days.map((d) => {
             const xp = state.days[d]?.xp ?? 0;
@@ -69,7 +69,7 @@ export default function IstatistikPage() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
-          <h2 className="mb-3 text-lg font-extrabold">🃏 Kelime kutuları</h2>
+          <h2 className="mb-3 text-lg font-extrabold">Kelime kutuları</h2>
           <p className="mb-3 text-sm font-bold text-inksoft">
             {learnedCount} öğrenildi · {Object.keys(state.srs).length} destede
           </p>
@@ -83,9 +83,9 @@ export default function IstatistikPage() {
           </div>
         </Card>
         <Card>
-          <h2 className="mb-3 text-lg font-extrabold">🧩 Güçlendirilecek konular</h2>
+          <h2 className="mb-3 text-lg font-extrabold">Güçlendirilecek konular</h2>
           {weakTopics.length === 0 ? (
-            <p className="text-sm font-bold text-mintdark">Tüm konular 2+ yıldız, canavarsın! 🏆</p>
+            <p className="text-sm font-bold text-mintdark">Tüm konular 2+ yıldız, canavarsın!</p>
           ) : (
             <div className="flex flex-col gap-2">
               {weakTopics.map((t) => (
@@ -95,7 +95,7 @@ export default function IstatistikPage() {
                   className="flex items-center justify-between rounded-2xl bg-paper px-3 py-2 font-bold transition-colors hover:bg-grapesoft"
                 >
                   <span className="text-sm">
-                    {t.emoji} {t.title}
+                    {t.title}
                   </span>
                   <Stars count={state.grammar[t.id]?.stars ?? 0} size="text-sm" />
                 </Link>
@@ -106,7 +106,7 @@ export default function IstatistikPage() {
       </div>
 
       <Card>
-        <h2 className="mb-3 text-lg font-extrabold">🎯 Deneme gelişimi</h2>
+        <h2 className="mb-3 text-lg font-extrabold">Deneme gelişimi</h2>
         {state.exams.length === 0 ? (
           <p className="text-sm font-bold text-inksoft">Henüz deneme yok. İlkini çöz, grafiğin başlasın!</p>
         ) : (
@@ -131,7 +131,7 @@ export default function IstatistikPage() {
 
       <Card>
         <h2 className="mb-3 text-lg font-extrabold">
-          🎖️ Rozetler ({state.badges.length}/{badges.length})
+          Rozetler ({state.badges.length}/{badges.length})
         </h2>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
           {badges.map((b) => {
@@ -143,7 +143,6 @@ export default function IstatistikPage() {
                   earned ? "border-sun bg-sunsoft/60" : "border-line bg-paper opacity-50 grayscale"
                 }`}
               >
-                <p className="text-3xl">{b.emoji}</p>
                 <p className="font-display text-sm font-extrabold leading-tight">{b.name}</p>
                 <p className="mt-0.5 text-[11px] font-bold text-inksoft">{b.desc}</p>
               </div>

@@ -112,34 +112,32 @@ export function Chip({
 }
 
 export function PageHeader({
-  emoji,
   title,
   desc,
 }: {
-  emoji: string;
   title: string;
   desc?: string;
 }) {
   return (
-    <div className="mb-6 flex items-start gap-4">
-      <div className="grid size-14 shrink-0 place-items-center rounded-2xl bg-grapesoft text-3xl">
-        {emoji}
-      </div>
-      <div>
-        <h1 className="text-2xl font-extrabold sm:text-3xl">{title}</h1>
-        {desc ? <p className="mt-1 text-inksoft">{desc}</p> : null}
-      </div>
+    <div className="mb-6 border-l-4 border-grape pl-4">
+      <h1 className="text-2xl font-extrabold sm:text-3xl">{title}</h1>
+      {desc ? <p className="mt-1 text-inksoft">{desc}</p> : null}
     </div>
   );
 }
 
 export function Stars({ count, size = "text-xl" }: { count: number; size?: string }) {
   return (
-    <span className={`${size} tracking-tight`}>
+    <span className={`${size} inline-flex gap-0.5`} aria-label={`${count}/3 yıldız`}>
       {[0, 1, 2].map((i) => (
-        <span key={i} className={i < count ? "" : "opacity-25 grayscale"}>
-          ⭐
-        </span>
+        <svg
+          key={i}
+          viewBox="0 0 24 24"
+          className={`size-[1em] ${i < count ? "fill-sun" : "fill-line"}`}
+          aria-hidden
+        >
+          <path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" />
+        </svg>
       ))}
     </span>
   );
