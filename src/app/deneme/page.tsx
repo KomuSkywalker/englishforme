@@ -40,9 +40,9 @@ export default function DenemeHub() {
         <p className="text-sm font-bold">
           Gerçek sınavdaki 4. bölüm olan Writing burada puanlanmaz: denemeden sonra{" "}
           <Link href="/yazma" className="underline">
-            Yazma Atölyesi
+            Writing
           </Link>
-          {"'nde"} bir essay yazarak tam sınav provası yapmış olursun.
+          {" bölümünde"} bir essay yazarak tam sınav provası yapmış olursun.
         </p>
       </Card>
       <Card>

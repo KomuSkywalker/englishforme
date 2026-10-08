@@ -19,7 +19,8 @@ export default function KelimeHub() {
   return (
     <div className="flex flex-col gap-5">
       <PageHeader
-        title="Kelime Kampı"
+        eyebrow={{ label: "Use of English", href: "/uoe" }}
+        title="Kelime"
         desc={`${words.length} sınav kelimesi seni bekliyor. Kutular yükseldikçe kelime kalıcı hafızana geçer.`}
       />
 

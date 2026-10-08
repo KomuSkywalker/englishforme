@@ -10,6 +10,7 @@ export default function ClozeHub() {
   return (
     <div>
       <PageHeader
+        eyebrow={{ label: "Use of English", href: "/uoe" }}
         title="Boşluk Doldurma"
         desc="MÜYYES'in Use of English bölümünün provası: metindeki 6 boşluğu doğru parçalarla doldur."
       />

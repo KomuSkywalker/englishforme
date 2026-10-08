@@ -16,7 +16,7 @@ const sections = [
     train: [
       { href: "/uoe", label: "Use of English pratiği" },
       { href: "/gramer", label: "Gramer konuları" },
-      { href: "/kelime", label: "Kelime kampı" },
+      { href: "/kelime", label: "Kelime" },
     ],
   },
   {

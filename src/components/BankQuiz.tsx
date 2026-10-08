@@ -31,7 +31,7 @@ export function BankQuiz({
   if (result) {
     return (
       <div>
-        <PageHeader title={title} />
+        <PageHeader eyebrow={{ label: "Use of English", href: "/uoe" }} title={title} />
         <Result
           correct={result.correct}
           total={result.total}
@@ -49,7 +49,7 @@ export function BankQuiz({
 
   return (
     <div>
-      <PageHeader title={title} desc={desc} />
+      <PageHeader eyebrow={{ label: "Use of English", href: "/uoe" }} title={title} desc={desc} />
       <QuizEngine
         key={round}
         exercises={exercises}

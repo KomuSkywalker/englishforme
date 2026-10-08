@@ -33,7 +33,7 @@ export default function KelimeQuizPage() {
           xpNote="Deste güncellendi"
           wrong={result.wrong}
           backHref="/kelime"
-          backLabel="Kelime kampına dön"
+          backLabel="Kelimeye dön"
           onRetry={() => {
             setResult(null);
             setRound((r) => r + 1);

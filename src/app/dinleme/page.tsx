@@ -4,15 +4,17 @@ import Link from "next/link";
 import { useProgress } from "@/lib/progress";
 import { listeningTracks } from "@/lib/data";
 import { Chip, PageHeader } from "@/components/ui";
+import { SectionStatus } from "@/components/SectionStatus";
 
 export default function DinlemeHub() {
   const { state } = useProgress();
   return (
     <div>
       <PageHeader
-        title="Dinleme Stüdyosu"
+        title="Listening"
         desc="Bilgisayarın sana okuyacak, sen dinleyip soruları çözeceksin. Gerçek sınavda da 2 dinleme parçası var!"
       />
+      <SectionStatus section="listening" />
       <div className="grid gap-3 sm:grid-cols-2">
         {listeningTracks.map((t) => {
           const score = state.listening[t.id];

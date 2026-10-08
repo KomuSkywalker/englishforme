@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useProgress } from "@/lib/progress";
 import { readingPassages } from "@/lib/data";
 import { Chip, PageHeader } from "@/components/ui";
+import { SectionStatus } from "@/components/SectionStatus";
 
 const levelLabels = ["", "Isınma", "Sınav Ayarı", "Zorlu"];
 const levelCls = ["", "bg-mintsoft text-mintdark", "bg-sunsoft text-sundark", "bg-berrysoft text-berrydark"];
@@ -13,9 +14,10 @@ export default function OkumaHub() {
   return (
     <div>
       <PageHeader
-        title="Okuma Rafı"
-        desc="Merak uyandıran parçalar, MÜYYES tarzı sorular. Sözlük hep yanında."
+        title="Reading"
+        desc="Okuma bölümü: akademik parçalar ve MÜYYES tarzı sorular (ana fikir, detay, çıkarım, referans). Sözlük hep yanında."
       />
+      <SectionStatus section="reading" />
       <div className="grid gap-3 sm:grid-cols-2">
         {readingPassages.map((p) => {
           const score = state.reading[p.id];

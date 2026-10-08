@@ -114,12 +114,19 @@ export function Chip({
 export function PageHeader({
   title,
   desc,
+  eyebrow,
 }: {
   title: string;
   desc?: string;
+  eyebrow?: { label: string; href: string };
 }) {
   return (
     <div className="mb-6 border-l-4 border-grape pl-4">
+      {eyebrow ? (
+        <Link href={eyebrow.href} className="text-xs font-extrabold uppercase tracking-wider text-grape hover:underline">
+          {eyebrow.label}
+        </Link>
+      ) : null}
       <h1 className="text-2xl font-extrabold sm:text-3xl">{title}</h1>
       {desc ? <p className="mt-1 text-inksoft">{desc}</p> : null}
     </div>

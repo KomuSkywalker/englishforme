@@ -78,7 +78,7 @@ export default function OgrenPage() {
           xpNote="Yeni kelimeler desteye eklendi"
           wrong={result.wrong}
           backHref="/kelime"
-          backLabel="Kelime kampına dön"
+          backLabel="Kelimeye dön"
         />
       </div>
     );

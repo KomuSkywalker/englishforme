@@ -36,7 +36,8 @@ export default function OyunlarHub() {
   return (
     <div>
       <PageHeader
-        title="Oyun Salonu"
+        eyebrow={{ label: "Use of English", href: "/uoe" }}
+        title="Kelime Oyunları"
         desc="Beynin oyun sanacak ama aslında MÜYYES kelimesi çalışıyor olacaksın."
       />
       <Card className="mb-4 flex items-center justify-between">

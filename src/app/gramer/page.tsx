@@ -16,6 +16,7 @@ export default function GramerHub() {
   return (
     <div className="flex flex-col gap-5">
       <PageHeader
+        eyebrow={{ label: "Use of English", href: "/uoe" }}
         title="Gramer Haritası"
         desc="Her konuda önce hap bilgi, sonra 14 soruluk görev. Yüzde 50 üstü 1, yüzde 70 üstü 2, yüzde 90 üstü 3 yıldız!"
       />

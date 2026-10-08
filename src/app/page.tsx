@@ -4,11 +4,12 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { useProgress } from "@/lib/progress";
 import { dateKey, daysBetween, lastNDays } from "@/lib/dates";
-import { questsForDay } from "@/lib/quests";
 import { buildPlan } from "@/lib/plan";
+import { latestExam, SECTION_MAX, type SectionId } from "@/lib/program";
 import { hashString } from "@/lib/random";
 import { words, grammarTopics, readingPassages, listeningTracks, clozePassages } from "@/lib/data";
 import { Card, Chip, LinkButton, ProgressBar } from "@/components/ui";
+import { DailyTasks } from "@/components/DailyTasks";
 
 const mascotLines = [
   "Bugün 20 dakika bile devleri devirir. Hadi bakalım!",
@@ -21,22 +22,17 @@ const mascotLines = [
   "Kısa mola verdiysen tamam, şimdi tam gaz!",
 ];
 
-const modules = [
-  { href: "/kelime", title: "Kelime", desc: "Kart destesi ve tekrarlar", bg: "bg-grapesoft" },
-  { href: "/gramer", title: "Gramer", desc: "16 konu, yıldız topla", bg: "bg-oceansoft" },
-  { href: "/okuma", title: "Okuma", desc: "Merak uyandıran parçalar", bg: "bg-mintsoft" },
-  { href: "/dinleme", title: "Dinleme", desc: "Kulağını sınava alıştır", bg: "bg-sunsoft" },
-  { href: "/uoe", title: "Use of English", desc: "Cloze, restatement, diyalog", bg: "bg-rose2soft" },
-  { href: "/oyunlar", title: "Oyunlar", desc: "Eğlenerek XP kas", bg: "bg-berrysoft" },
-  { href: "/deneme", title: "Deneme", desc: "Mini ve tam MÜYYES provası", bg: "bg-grapesoft" },
-  { href: "/yazma", title: "Yazma", desc: "Essay planı ve kalıplar", bg: "bg-oceansoft" },
+const modules: { href: string; title: string; desc: string; bg: string; section?: SectionId }[] = [
+  { href: "/uoe", title: "Use of English", desc: "Gramer, kelime, cloze, restatement, diyalog", bg: "bg-grapesoft", section: "uoe" },
+  { href: "/okuma", title: "Reading", desc: "Akademik metinler ve soru tipleri", bg: "bg-mintsoft", section: "reading" },
+  { href: "/dinleme", title: "Listening", desc: "2 dinleme hakkıyla sınav provası", bg: "bg-sunsoft", section: "listening" },
+  { href: "/yazma", title: "Writing", desc: "Essay planı, kalıplar, 40 dk mod", bg: "bg-oceansoft", section: "writing" },
 ];
 
 export default function Dashboard() {
   const { state, ready, todayXp, levelInfo, dueCount, learnedCount } = useProgress();
   const today = dateKey();
   const daysLeft = Math.max(0, daysBetween(today, state.settings.examDate));
-  const quests = questsForDay(today);
   const line = mascotLines[hashString(today + "line") % mascotLines.length];
   const name = state.settings.name.trim();
   const newWordsAvailable = words.filter((w) => !state.srs[w.id]).length;
@@ -48,6 +44,7 @@ export default function Dashboard() {
   const totalPieces = readingPassages.length + listeningTracks.length + clozePassages.length;
   const topicsLeft = grammarTopics.filter((t) => (state.grammar[t.id]?.stars ?? 0) === 0).length;
   const plan = buildPlan(daysLeft, newWordsAvailable, topicsLeft);
+  const lastExam = latestExam(state.pastExams);
   const examDateTr = (() => {
     const [y, m, d] = state.settings.examDate.split("-").map(Number);
     return new Date(y, m - 1, d).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" });
@@ -139,40 +136,10 @@ export default function Dashboard() {
         )}
       </Card>
 
-      <Card>
-        <h2 className="mb-3 text-lg font-extrabold">Günün görevleri</h2>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {quests.map((q) => {
-            const count = Math.min(state.questCounts[q.kind] ?? 0, q.target);
-            const done = state.questAwarded.includes(q.id);
-            return (
-              <Link
-                key={q.id}
-                href={q.href}
-                className={`rounded-2xl border-2 p-3 transition-all hover:-translate-y-0.5 ${
-                  done ? "border-mint bg-mintsoft" : "border-line bg-paper"
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-bold">
-                    {q.label}
-                  </span>
-                  <span className="text-sm font-extrabold text-inksoft">
-                    {done ? "Tamam" : `+${q.xp} XP`}
-                  </span>
-                </div>
-                <ProgressBar value={done ? q.target : count} max={q.target} accent="mint" className="mt-2 !h-2.5" />
-              </Link>
-            );
-          })}
-        </div>
-        <p className="mt-3 text-center text-sm font-bold text-inksoft">
-          4 görevi de bitirene +150 bonus XP var!
-        </p>
-      </Card>
+      <DailyTasks />
 
       <Card>
-        <h2 className="mb-3 text-lg font-extrabold">Bugün ne yapsak?</h2>
+        <h2 className="mb-3 text-lg font-extrabold">Hızlı başla</h2>
         <div className="flex flex-col gap-2">
           {ready && dueCount > 0 ? (
             <LinkButton href="/kelime/tekrar" accent="grape" className="justify-between">
@@ -192,12 +159,10 @@ export default function Dashboard() {
               <span>→</span>
             </LinkButton>
           ) : null}
-          <LinkButton href="/oyunlar" accent="sun" className="justify-between">
-            <span>Beynini oyunla kandır</span> <span>→</span>
-          </LinkButton>
         </div>
       </Card>
 
+      <h2 className="-mb-2 text-lg font-extrabold">Sınav bölümleri</h2>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {modules.map((m, i) => (
           <motion.div
@@ -213,6 +178,11 @@ export default function Dashboard() {
               <span className={`block h-2 w-10 rounded-full ${m.bg}`} />
               <p className="mt-3 font-display font-extrabold">{m.title}</p>
               <p className="text-xs font-bold text-inksoft">{m.desc}</p>
+              {m.section && lastExam && lastExam.sections[m.section] !== null ? (
+                <p className="mt-2 text-xs font-extrabold text-grape">
+                  Son sınavın: {lastExam.sections[m.section]}/{SECTION_MAX}
+                </p>
+              ) : null}
             </Link>
           </motion.div>
         ))}

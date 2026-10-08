@@ -45,7 +45,7 @@ export default function TekrarPage() {
           xpNote="Kutular güncellendi"
           wrong={result.wrong}
           backHref="/kelime"
-          backLabel="Kelime kampına dön"
+          backLabel="Kelimeye dön"
           onRetry={() => {
             setResult(null);
             setRound((r) => r + 1);

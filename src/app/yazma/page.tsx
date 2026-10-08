@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useProgress } from "@/lib/progress";
 import { writingPrompts } from "@/lib/data";
 import { Card, Chip, PageHeader } from "@/components/ui";
+import { SectionStatus } from "@/components/SectionStatus";
 
 const typeCls: Record<string, string> = {
   opinion: "bg-grapesoft text-grape",
@@ -17,9 +18,10 @@ export default function YazmaHub() {
   return (
     <div>
       <PageHeader
-        title="Yazma Atölyesi"
+        title="Writing"
         desc="MÜYYES'te 250 kelimelik essay yazacaksın. Burada plan kur, kalıpları kap, taslağını yaz."
       />
+      <SectionStatus section="writing" />
       <Card className="mb-4 bg-sunsoft/60">
         <p className="text-sm font-bold">
           Sınav formatı: sana 2 konu verilir, birini seçer ve yaklaşık 250 kelimelik bir essay

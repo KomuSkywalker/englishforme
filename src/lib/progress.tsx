@@ -5,7 +5,7 @@ import { addDays, dateKey, daysBetween } from "./dates";
 import { isDue, isLearned, isMastered, newEntry, reviewEntry, type SrsEntry } from "./srs";
 import { levelFromXp } from "./levels";
 import { badges as allBadges, type BadgeSnapshot } from "./badges";
-import { allQuestsBonusXp, questsForDay, type QuestKind } from "./quests";
+import { allTasksBonusXp, focusWeights, tasksForDay, type DailyTask, type PastExam, type TaskKind, type Weights } from "./program";
 import { setSoundEnabled, sfx } from "./sound";
 import { bigCelebration, burst, starRain, toast } from "./fx";
 
@@ -18,6 +18,7 @@ export type Settings = {
   examDate: string;
   examDateSet: boolean;
   dailyGoal: number;
+  dailyMinutes: number;
   sound: boolean;
   name: string;
 };
@@ -40,9 +41,10 @@ export type ProgressState = {
   days: Record<string, DayStat>;
   badges: string[];
   questDay: string;
-  questCounts: Partial<Record<QuestKind, number>>;
+  questCounts: Partial<Record<TaskKind, number>>;
   questAwarded: string[];
   gamesPlayed: number;
+  pastExams: PastExam[];
   settings: Settings;
 };
 
@@ -67,7 +69,15 @@ function defaultState(): ProgressState {
     questCounts: {},
     questAwarded: [],
     gamesPlayed: 0,
-    settings: { examDate: DEFAULT_EXAM_DATE, examDateSet: false, dailyGoal: 150, sound: true, name: "" },
+    pastExams: [],
+    settings: {
+      examDate: DEFAULT_EXAM_DATE,
+      examDateSet: false,
+      dailyGoal: 150,
+      dailyMinutes: 90,
+      sound: true,
+      name: "",
+    },
   };
 }
 
@@ -154,18 +164,31 @@ type Ctx = {
   answer: (correct: boolean, opts?: { xp?: number; isWord?: boolean }) => void;
   startWord: (id: string) => void;
   reviewWord: (id: string, correct: boolean) => void;
-  tally: (kind: QuestKind, amount?: number) => void;
+  tally: (kind: TaskKind, amount?: number) => void;
   finishGrammar: (id: string, correct: number, total: number) => void;
   finishSection: (kind: "reading" | "listening" | "cloze", id: string, pct: number) => void;
   finishWriting: (id: string) => void;
   addExam: (kind: string, score: number, total: number) => void;
+  savePastExam: (exam: PastExam) => void;
+  removePastExam: (id: string) => void;
   updateSettings: (patch: Partial<Settings>) => void;
   resetAll: () => void;
   todayXp: number;
   levelInfo: ReturnType<typeof levelFromXp>;
   dueCount: number;
   learnedCount: number;
+  daysLeft: number;
+  weights: Weights;
+  todayTasks: DailyTask[];
 };
+
+function daysLeftOf(s: ProgressState): number {
+  return Math.max(0, daysBetween(dateKey(), s.settings.examDate));
+}
+
+function tasksOf(s: ProgressState, day: string): DailyTask[] {
+  return tasksForDay(day, focusWeights(s.pastExams), daysLeftOf(s));
+}
 
 const ProgressContext = createContext<Ctx | null>(null);
 
@@ -255,7 +278,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       setState(rollover);
       return;
     }
-    const quests = questsForDay(today);
+    const quests = tasksOf(state, today);
     const pending = quests.filter(
       (q) => !state.questAwarded.includes(q.id) && (state.questCounts[q.kind] ?? 0) >= q.target
     );
@@ -265,7 +288,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
         for (const q of pending) next = withXp(next, q.xp);
         const allDone = quests.every((q) => next.questAwarded.includes(q.id));
         if (allDone && !next.questAwarded.includes("day-bonus")) {
-          next = withXp(next, allQuestsBonusXp);
+          next = withXp(next, allTasksBonusXp);
           next.questAwarded = [...next.questAwarded, "day-bonus"];
         }
         return next;
@@ -278,7 +301,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       );
       if (willAllDone) {
         bigCelebration();
-        toast({ title: "Günün tüm görevleri bitti!", body: `Bonus +${allQuestsBonusXp} XP kazandın.` });
+        toast({ title: "Günün tüm görevleri bitti!", body: `Bonus +${allTasksBonusXp} XP kazandın.` });
       }
     }
   }, [state, ready]);
@@ -346,6 +369,13 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
           ...rollover(s),
           exams: [...s.exams, { day: today, kind, score, total }],
         })),
+      savePastExam: (exam) =>
+        setState((s) => ({
+          ...s,
+          pastExams: [...s.pastExams.filter((e) => e.id !== exam.id), exam],
+        })),
+      removePastExam: (id) =>
+        setState((s) => ({ ...s, pastExams: s.pastExams.filter((e) => e.id !== id) })),
       updateSettings: (patch) =>
         setState((s) => ({ ...s, settings: { ...s.settings, ...patch } })),
       resetAll: () => {
@@ -358,6 +388,9 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       levelInfo: levelFromXp(state.xp),
       dueCount: Object.entries(state.srs).filter(([, e]) => isDue(e)).length,
       learnedCount: entries.filter(isLearned).length,
+      daysLeft: daysLeftOf(state),
+      weights: focusWeights(state.pastExams),
+      todayTasks: tasksOf(state, today),
     };
   }, [state, ready]);
 
